@@ -1,0 +1,2261 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>2.1. Estimation of activity levels: Part I &#8212; Computational and Inferential Thinking</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="canonical" href="https://inferentialthinking.org/chapters/05/01/Activity_Estimation_I.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="2.2. Counterfactual predictions for impact variables" href="../02/Counterfactual_Impact.html" />
+    <link rel="prev" title="2. M&amp;V is counterfactual prediction" href="../Counterfactuals.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-148221575-1', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/favicon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Computational and Inferential Thinking</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02/Background.html">
+   1. CThe concept of measurement and verification
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../Counterfactuals.html">
+   2. Counterfactual predictions
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     2.1. Activity Estimation: Part I
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02/Counterfactual_Impact.html">
+     2.2. Counterfactual predictions for impact variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03/Activity_Estimation_II.html">
+     2.3. Activity Estimation: Part II
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04/Counterfactual_Mapping.html">
+     2.4. Counterfactual predictions for mapping variables
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/data-8/textbook/main?urlpath=tree/chapters/05/01/Activity_Estimation_I.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A//github.com/data-8/textbook&urlpath=tree/textbook/chapters/05/01/Activity_Estimation_I.ipynb&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/data-8/textbook"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/chapters/05/01/Activity_Estimation_I.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-b01-dataset">
+   2.1.1. The
+   <em>
+    b01
+   </em>
+   dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-a-monolithic-model-to-predict-energy-consumption">
+   2.1.2. Using a monolithic model to predict energy consumption
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#estimating-activity-by-a-markov-switching-regression-model">
+   2.1.3. Estimating activity by a Markov switching regression model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#allowing-activity-estimation-to-overfit-the-data">
+   2.1.4. Allowing activity estimation to overfit the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#correcting-the-activity-estimation">
+   2.1.5. Correcting the activity estimation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#disaggregating-predictions">
+   2.1.6. Disaggregating predictions
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Estimation of activity levels: Part I</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-b01-dataset">
+   2.1.1. The
+   <em>
+    b01
+   </em>
+   dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-a-monolithic-model-to-predict-energy-consumption">
+   2.1.2. Using a monolithic model to predict energy consumption
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#estimating-activity-by-a-markov-switching-regression-model">
+   2.1.3. Estimating activity by a Markov switching regression model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#allowing-activity-estimation-to-overfit-the-data">
+   2.1.4. Allowing activity estimation to overfit the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#correcting-the-activity-estimation">
+   2.1.5. Correcting the activity estimation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#disaggregating-predictions">
+   2.1.6. Disaggregating predictions
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="estimation-of-activity-levels-part-i">
+<h1><span class="section-number">2.1. </span>Estimation of activity levels: Part I<a class="headerlink" href="#estimation-of-activity-levels-part-i" title="Permalink to this headline">#</a></h1>
+<p>When we use calendar features for counterfactual energy consumption predictions, we make two (2) assumptions:</p>
+<ol class="simple">
+<li><p>The calendar features approximate a hidden variable (let’s call it <code class="docutils literal notranslate"><span class="pre">activity</span></code>) that reflects the operating schedule of the building, as well as the density of its energy usage.</p></li>
+</ol>
+<p>For instance, <code class="docutils literal notranslate"><span class="pre">activity</span></code> may reflect the number of people in the building during a specific time, which, in turn, affects the level of plug and/or cooling loads, and/or the heating and cooling strategy that may include a pre-heating or pre-cooling operation based on the expected occupancy changes. This means that <code class="docutils literal notranslate"><span class="pre">activity</span></code> levels are correlated with occupancy levels, but activity and occupancy don’t always coincide.</p>
+<ol class="simple">
+<li><p>The relationship between the calendar features and the <code class="docutils literal notranslate"><span class="pre">activity</span></code> levels remains the same before and after the energy retrofit.</p></li>
+</ol>
+<p>An alternative way to think about <code class="docutils literal notranslate"><span class="pre">activity</span></code> is to regard it as a hidden variable that explains (part of) the variability of energy consumption given external (i.e. non occupancy-related) variables that are independent of the building’s operation.</p>
+<p>The following diagram shows how <code class="docutils literal notranslate"><span class="pre">activity</span></code> fits into an energy consumption prediction that uses calendar features:</p>
+<p><img alt="Activity feature" src="../../../_images/activity_feature.png" /></p>
+<p>The M&amp;V approach of <code class="docutils literal notranslate"><span class="pre">eensight</span></code> aims first at estimating directly the <code class="docutils literal notranslate"><span class="pre">activity</span></code> feature and, then, at calculating the impact of an energy retrofit by comparing energy consumption before and after the retrofit for similar levels of occupancy-independent features (such as outdoor air temperature) and similar activity levels.</p>
+<p>This section explains how <code class="docutils literal notranslate"><span class="pre">activity</span></code> is estimated and how it is subsequently used.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext autoreload
+%autoreload 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import warnings
+
+import emcee
+import numpy as np
+import pandas as pd
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+from sklearn.preprocessing import KBinsDiscretizer, MinMaxScaler
+from sklearn.utils.validation import column_or_1d
+from tabulate import tabulate
+from tsmoothie.smoother import KalmanSmoother
+
+from eensight.methods.prediction.activity import (
+    estimate_activity, 
+    estimate_activity_markov,
+    extract_activity
+)
+from eensight.methods.prediction.common import train_boost
+from eensight.methods.prediction.metrics import cvrmse, nmbe
+from eensight.utils import load_catalog
+
+plt.style.use(&quot;bmh&quot;)
+
+%matplotlib inline
+</pre></div>
+</div>
+</div>
+</div>
+<p>Some utility functions:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def intervals(bin_edges):
+    columns = []
+    bin_edges = bin_edges.round(1)
+    
+    for i in range(0, len(bin_edges)-1):
+        columns.append(f&quot;&gt;{bin_edges[i]} &amp; &lt;={bin_edges[i+1]}&quot;)
+
+    return columns
+
+
+def sigmoid(X: pd.DataFrame, c1: float, c2: float):
+    return 1 / (1 + np.exp(-c1 * (X-c2)))
+
+
+def rescale(X: pd.DataFrame):
+    scaler = MinMaxScaler()
+    
+    return pd.Series(
+        scaler.fit_transform(
+            column_or_1d(X).reshape(-1, 1)
+        ).squeeze(),
+        index=X.index
+    )
+</pre></div>
+</div>
+</div>
+</div>
+<section id="the-b01-dataset">
+<h2><span class="section-number">2.1.1. </span>The <em>b01</em> dataset<a class="headerlink" href="#the-b01-dataset" title="Permalink to this headline">#</a></h2>
+<p>The <em>b01</em> dataset corresponds to the building with <code class="docutils literal notranslate"><span class="pre">id=4</span></code> of the dataset provided by the <a class="reference external" href="https://zenodo.org/record/6590976">EnergyDetective 2020</a> competition.</p>
+<p>Start with the <code class="docutils literal notranslate"><span class="pre">train</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>catalog_train = load_catalog(store_uri=&quot;../../../data&quot;, site_id=&quot;b01&quot;, namespace=&quot;train&quot;)
+
+X_train = catalog_train.load(&quot;train.preprocessed-features&quot;)
+y_train = catalog_train.load(&quot;train.preprocessed-labels&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The following plot presents the energy consumption of the selected dataset as a function of the outdoor air (dry bulb) temperature:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+ax.scatter(X_train[&quot;temperature&quot;], y_train[&quot;consumption&quot;], s=10)
+ax.set_xlabel(&quot;temperature&quot;)
+ax.set_ylabel(&quot;consumption&quot;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_11_0.png" src="../../../_images/Activity_Estimation_I_11_0.png" />
+</div>
+</div>
+</section>
+<section id="using-a-monolithic-model-to-predict-energy-consumption">
+<h2><span class="section-number">2.1.2. </span>Using a monolithic model to predict energy consumption<a class="headerlink" href="#using-a-monolithic-model-to-predict-energy-consumption" title="Permalink to this headline">#</a></h2>
+<p>Suppose that we want to fit on the <code class="docutils literal notranslate"><span class="pre">train</span></code> data a predictive model for energy consumption that uses:</p>
+<ul class="simple">
+<li><p>calendar features (as a proxy for the building’s operation schedule) and</p></li>
+<li><p>weather features.</p></li>
+</ul>
+<p>We already have weather features in the data,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for feature in X_train.columns:
+    print(feature)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>temperature
+dew point temperature
+relative humidity
+atmospheric pressure
+wind speed
+</pre></div>
+</div>
+</div>
+</div>
+<p>… so let’s add the calendar ones:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train[&quot;hour&quot;] = X_train.index.hour               # hour of day
+X_train[&quot;day&quot;] = X_train.index.dayofweek           # day of week
+X_train[&quot;week&quot;] = X_train.index.isocalendar().week # week of year
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, we can fit a predictive model.</p>
+<p>We can use the <a class="reference external" href="https://catboost.ai/">Catboost</a> library for gradient boosting on decision trees to build and train the predictive model. <code class="docutils literal notranslate"><span class="pre">eensight</span></code> provides the function <code class="docutils literal notranslate"><span class="pre">eensight.methods.prediction.common.train_boost</span></code> for this purpose. It needs a <code class="docutils literal notranslate"><span class="pre">validation_size</span></code> parameter, which is the percentage of all training data to use for identifying the optimal number of iterations for the Gradient Boosting model (so that to avoid overfitting).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = train_boost(X_train, y_train, validation_size=0.2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The monolithic model is summarized in the following diagram:</p>
+<p><img alt="Monolithic model" src="../../../_images/monolithic.png" /></p>
+<p>Next, we can apply the model on the <code class="docutils literal notranslate"><span class="pre">test</span></code> data. First, load the data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>catalog_test = load_catalog(store_uri=&quot;../../../data&quot;, site_id=&quot;b01&quot;, namespace=&quot;test&quot;)
+
+X_test = catalog_test.load(&quot;test.preprocessed-features&quot;)
+y_test = catalog_test.load(&quot;test.preprocessed-labels&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Both the <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> period consumption data are presented in the next plot:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+y_train.plot(ax=ax)
+y_test.plot(ax=ax)
+ax.legend([&quot;`train` period&quot;, &quot;`test` period&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_23_0.png" src="../../../_images/Activity_Estimation_I_23_0.png" />
+</div>
+</div>
+<p>Add calendar features to the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_test[&quot;hour&quot;] = X_test.index.hour               # hour of day
+X_test[&quot;day&quot;] = X_test.index.dayofweek           # day of week
+X_test[&quot;week&quot;] = X_test.index.isocalendar().week # week of year
+</pre></div>
+</div>
+</div>
+</div>
+<p>Use the trained model to predict energy consumption:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>prediction = pd.Series(model.predict(X_test), index=X_test.index).clip(lower=0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The Coefficient of Variation of the Root Mean Squared Error CV(RMSE) is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cvrmse(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.236691071780723</span>
+</pre>
+</div></div>
+</div>
+<p>The Normalized Mean Bias Error (NMBE) is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.051646981344470544</span>
+</pre>
+</div></div>
+</div>
+<p>We will capture the CV(RMSE) and NMBE values for all the models presented in this section:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary = {
+    &quot;CV(RMSE)&quot;: {},
+    &quot;NMBE&quot;: {}
+}
+
+summary[&quot;CV(RMSE)&quot;][&quot;Monolithic model&quot;] = cvrmse(y_test, prediction)
+summary[&quot;NMBE&quot;][&quot;Monolithic model&quot;] = nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+</div>
+<p>In addition, we want to know what is achievable (in terms of predictive accuracy) using only the calendar features. We will use this information later on when we will examine the information contained in the estimated <code class="docutils literal notranslate"><span class="pre">activity</span></code> feature.</p>
+<p>For this, we will train a model using only calendar features for the <code class="docutils literal notranslate"><span class="pre">train</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train_cal = X_train[[&quot;hour&quot;, &quot;day&quot;, &quot;week&quot;]]
+
+model = train_boost(X_train_cal, y_train, validation_size=0.2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>… and apply it on the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_test_cal = X_test[[&quot;hour&quot;, &quot;day&quot;, &quot;week&quot;]]
+
+prediction = pd.Series(model.predict(X_test_cal), index=X_test.index).clip(lower=0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The CV(RMSE) is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cvrmse(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.27685025516832096</span>
+</pre>
+</div></div>
+</div>
+<p>The NMBE is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.05317594630937793</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary[&quot;CV(RMSE)&quot;][&quot;Monolithic model w/ calendar features only&quot;] = cvrmse(y_test, prediction)
+summary[&quot;NMBE&quot;][&quot;Monolithic model w/ calendar features only&quot;] = nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="estimating-activity-by-a-markov-switching-regression-model">
+<h2><span class="section-number">2.1.3. </span>Estimating activity by a Markov switching regression model<a class="headerlink" href="#estimating-activity-by-a-markov-switching-regression-model" title="Permalink to this headline">#</a></h2>
+<p>One way to estimate <code class="docutils literal notranslate"><span class="pre">activity</span></code> is to assume that it is a variable that distinguishes all energy consumption observations into two (2) regimes (one regime corresponding to an occupied state and one regime to an unoccupied state). Each regime is described by a different relationship between energy consumption and the most influential occupancy-indepedent feature (<code class="docutils literal notranslate"><span class="pre">temperature</span></code> by default).</p>
+<p>In particular, the underlying model is of the form:</p>
+<div class="math notranslate nohighlight">
+\[consumption_t=f_{s_t}(T_t)+\epsilon_t\]</div>
+<p>where:</p>
+<p><span class="math notranslate nohighlight">\(consumption_t\)</span> is the energy consumption at time <span class="math notranslate nohighlight">\(t\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_t\)</span> is the outdoor temperature at time <span class="math notranslate nohighlight">\(t\)</span></p>
+<p><span class="math notranslate nohighlight">\(\epsilon_t \sim N(0, \sigma^2)\)</span> and</p>
+<p><span class="math notranslate nohighlight">\(s_t \in [0, 1]\)</span> is the active regime at time <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">eensight.methods.prediction.activity.estimate_activity_markov</span></code> estimates activity levels as the probability of being in the regime that explains the highest energy consumption values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>act_train = estimate_activity_markov(X_train, y_train, exog=&quot;temperature&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The estimated activity levels along with the actual energy consumption for the month of January are presented in the next plot:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>month = 1 # January
+
+fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax1 = plt.subplot2grid(layout, (0, 0))
+ax2 = ax1.twinx()
+
+y_train[&quot;consumption&quot;].loc[y_train.index.month==month].plot(ax=ax1, color=&quot;#034e7b&quot;, alpha=0.6)
+act_train.loc[act_train.index.month==month].plot(ax=ax2, color=&quot;#cc4c02&quot;, alpha=0.6)
+
+ax1.set_ylabel(&quot;Energy consumption&quot;, color=&quot;#034e7b&quot;)
+ax2.set_ylabel(&quot;Estimated activity&quot;, color=&quot;#cc4c02&quot;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_47_0.png" src="../../../_images/Activity_Estimation_I_47_0.png" />
+</div>
+</div>
+<p>Two (2) questions arise at this point:</p>
+<ol class="simple">
+<li><p>How well does the estimated activity levels work as a feature to predict energy consumption?</p></li>
+<li><p>We know that we have caused <a class="reference external" href="https://en.wikipedia.org/wiki/Leakage_(machine_learning)">data leakage</a> because we have used energy consumption data to estimate the activity levels in the first place. So this approach is not valid for a predictive task. But, is it valid for an M&amp;V task?</p></li>
+</ol>
+<p><strong>Q1: How well does the estimated activity levels work as a feature?</strong></p>
+<p>In <code class="docutils literal notranslate"><span class="pre">eensight</span></code>, by convention, there should be no difference between <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> data. If an event that alters the characteristics of the energy consumption (such as an energy retrofit) has taken place, the post-event data should be in the <code class="docutils literal notranslate"><span class="pre">apply</span></code> namespace.</p>
+<p>As a result, we can exploit the fact that for similar activity levels and similar values of the occupancy-independent variables, energy consumption in <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> data should be similar. In this way, we can “predict” the energy consumption for the <code class="docutils literal notranslate"><span class="pre">test</span></code> data using the average energy consumption for the same activity and temperature levels in the <code class="docutils literal notranslate"><span class="pre">train</span></code> data.</p>
+<p>Even more importantly, we can estimate the impact of an event by comparing the average energy consumption of the <code class="docutils literal notranslate"><span class="pre">apply</span></code> data to the average energy consumption for the <code class="docutils literal notranslate"><span class="pre">train</span></code> data with the same activity and temperature levels.</p>
+<p>As an example, let’s isolate all <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> observations where temperature is lower than 20<span class="math notranslate nohighlight">\(^{\circ}C\)</span> and activity levels equal to one (1). First, estimate activity for the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>act_test = estimate_activity_markov(X_test, y_test, exog=&quot;temperature&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, select the two (2) subsets:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>low_temp_periods_train = X_train[X_train[&quot;temperature&quot;] &lt; 20].index
+
+y_train_selected = y_train[
+    y_train.index.isin(low_temp_periods_train) 
+    &amp; y_train.index.isin(act_train[act_train == 1].index)
+]
+
+low_temp_periods_test = X_test[X_test[&quot;temperature&quot;] &lt; 20].index
+
+y_test_selected = y_test[
+    y_test.index.isin(low_temp_periods_test) 
+    &amp; y_test.index.isin(act_test[act_test == 1].index)
+]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can plot the two subsets side by side:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 3.54), dpi=96)
+fig.subplots_adjust(wspace=0.04)
+
+ax1.scatter(
+    X_train.loc[~X_train.index.isin(y_train_selected.index), &quot;temperature&quot;], 
+    y_train.loc[~y_train.index.isin(y_train_selected.index), &quot;consumption&quot;], 
+    s=10, 
+    alpha=0.8
+)
+
+ax1.scatter(
+    X_train.loc[y_train_selected.index, &quot;temperature&quot;], 
+    y_train_selected[&quot;consumption&quot;], 
+    s=10, 
+    alpha=0.4,
+    color=&quot;#fe9929&quot;
+)
+
+ax1.set_xlabel(&quot;temperature&quot;)
+ax1.set_ylabel(&quot;consumption&quot;)
+ax1.set_title(&quot;`train` data&quot;)
+
+ax1.legend(
+    handles=[
+        mpatches.Patch(color=&quot;#fe9929&quot;, label=&quot;Selected subset&quot;), 
+    ]
+)
+
+ax2.scatter(
+    X_test.loc[~X_test.index.isin(y_test_selected.index), &quot;temperature&quot;], 
+    y_test.loc[~y_test.index.isin(y_test_selected.index), &quot;consumption&quot;],
+    s=10, 
+    alpha=0.8
+)
+
+ax2.scatter(
+    X_test.loc[y_test_selected.index, &quot;temperature&quot;], 
+    y_test_selected[&quot;consumption&quot;], 
+    s=10, 
+    alpha=0.4,
+    color=&quot;#fe9929&quot;
+)
+
+ax2.set_xlabel(&quot;temperature&quot;)
+ax2.set_title(&quot;`test` data&quot;)
+
+ax2.legend(
+    handles=[
+        mpatches.Patch(color=&quot;#fe9929&quot;, label=&quot;Selected subset&quot;), 
+    ]
+)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_55_0.png" src="../../../_images/Activity_Estimation_I_55_0.png" />
+</div>
+</div>
+<p>Since there has been no event that alters the energy consumption between the two periods, the distributions should be similar, and knowing the energy consumption of the <code class="docutils literal notranslate"><span class="pre">train</span></code> period should tell us something about the energy consumption during the <code class="docutils literal notranslate"><span class="pre">test</span></code> period:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+y_train_selected.plot.kde(ax=ax)
+y_test_selected.plot.kde(ax=ax)
+
+ax.legend([&quot;`train` period&quot;, &quot;`test` period&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_57_0.png" src="../../../_images/Activity_Estimation_I_57_0.png" />
+</div>
+</div>
+<p>This is pretty much how a counterfactual prediction should work: find similar conditions between the two datasets (here, similar temperature and activity levels), and compare their energy consumption. To make this approach operational, we can split the <code class="docutils literal notranslate"><span class="pre">train</span></code> temperature into five (5) bins and calculate the average energy consumption per bin and activity level:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>n_bins = 5
+encoder = KBinsDiscretizer(n_bins=n_bins, encode=&quot;ordinal&quot;, strategy=&quot;uniform&quot;)
+
+data_train = pd.concat(
+    [
+        X_train[[&quot;temperature&quot;]], 
+        y_train,
+        # make activity a binary feature for easier mapping
+        act_train.map(lambda x: 0 if x &lt; 0.5 else 1).to_frame(&quot;activity&quot;)
+    ], 
+    axis=1
+).dropna()
+
+data_train[&quot;temperature&quot;] = encoder.fit_transform(data_train[[&quot;temperature&quot;]]).astype(int)
+data_train = data_train.groupby([&quot;activity&quot;, &quot;temperature&quot;]).mean().unstack().droplevel(0, axis=1)
+
+data_train.columns = data_train.columns.map(
+    lambda x: intervals(encoder.bin_edges_.item())[x]
+)
+
+data_train
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>temperature</th>
+      <th>&gt;-7.0 &amp; &lt;=2.4</th>
+      <th>&gt;2.4 &amp; &lt;=11.8</th>
+      <th>&gt;11.8 &amp; &lt;=21.2</th>
+      <th>&gt;21.2 &amp; &lt;=30.6</th>
+      <th>&gt;30.6 &amp; &lt;=40.0</th>
+    </tr>
+    <tr>
+      <th>activity</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>149.25767</td>
+      <td>142.914250</td>
+      <td>125.647583</td>
+      <td>172.135394</td>
+      <td>262.607396</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>373.19614</td>
+      <td>374.861029</td>
+      <td>289.907589</td>
+      <td>392.749730</td>
+      <td>588.314565</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Then, map activity levels and temperature bins between the <code class="docutils literal notranslate"><span class="pre">train</span></code> and the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_test_act = pd.concat(
+    [
+        X_test[[&quot;temperature&quot;]],
+        act_test.map(lambda x: 0 if x &lt; 0.5 else 1).to_frame(&quot;activity&quot;)
+    ], 
+    axis=1
+).dropna()
+
+X_test_act[&quot;temperature&quot;] = encoder.transform(X_test_act[[&quot;temperature&quot;]]).astype(int)
+X_test_act[&quot;temperature&quot;] = X_test_act[&quot;temperature&quot;].map(
+    lambda x: intervals(encoder.bin_edges_.item())[x]
+)
+
+prediction = (
+    X_test_act.apply(lambda row: data_train.loc[row[&quot;activity&quot;], row[&quot;temperature&quot;]], axis=1) 
+              .reindex(X_test.index)                   
+              .fillna(method=&quot;ffill&quot;)
+              .fillna(method=&quot;bfill&quot;)
+)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The actual and the predicted energy consumption are presented in the next plot:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+y_test[&quot;consumption&quot;].plot(ax=ax, alpha=0.6)
+prediction.plot(ax=ax, alpha=0.4)
+
+ax.set_ylabel(&quot;Energy consumption&quot;)
+ax.set_xlabel(&quot;&quot;)
+ax.legend([&quot;Actual energy consumption&quot;, &quot;Predicted energy consumption&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_63_0.png" src="../../../_images/Activity_Estimation_I_63_0.png" />
+</div>
+</div>
+<p>The CV(RMSE) is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cvrmse(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.25303261894923357</span>
+</pre>
+</div></div>
+</div>
+<p>The NMBE is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.03435777844009265</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary[&quot;CV(RMSE)&quot;][&quot;Binning model&quot;] = cvrmse(y_test, prediction)
+summary[&quot;NMBE&quot;][&quot;Binning model&quot;] = nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+</div>
+<p>What we just did is equivalent to adding the estimated activity levels to the weather-related features of the <code class="docutils literal notranslate"><span class="pre">train</span></code> data, dropping the calendar features (hour of day, day of week, week of year) since we are replacing them with the activity estimation, and learning to predict energy consumption:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train_act = pd.concat(
+    [
+        X_train.drop([&quot;hour&quot;, &quot;day&quot;, &quot;week&quot;], axis=1),
+        act_train.to_frame(&quot;activity&quot;)
+    ], 
+    axis=1
+)
+
+model = train_boost(X_train_act, y_train, validation_size=0.2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can apply the model that was trained with <code class="docutils literal notranslate"><span class="pre">train</span></code> data on the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_test_act = pd.concat(
+    [
+        X_test.drop([&quot;hour&quot;, &quot;day&quot;, &quot;week&quot;], axis=1),
+        act_test.to_frame(&quot;activity&quot;)
+    ], 
+    axis=1
+)
+
+# apply the model that was trained with `train` data
+prediction = pd.Series(
+    model.predict(X_test_act), index=X_test.index
+).clip(lower=0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The actual and the predicted energy consumption are presented in the next plot:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+y_test[&quot;consumption&quot;].plot(ax=ax, alpha=0.6)
+prediction.plot(ax=ax, alpha=0.4)
+
+ax.set_ylabel(&quot;Energy consumption&quot;)
+ax.set_xlabel(&quot;&quot;)
+ax.legend([&quot;Actual energy consumption&quot;, &quot;Predicted energy consumption&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_74_0.png" src="../../../_images/Activity_Estimation_I_74_0.png" />
+</div>
+</div>
+<p>The CV(RMSE) is now:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cvrmse(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2200642085109248</span>
+</pre>
+</div></div>
+</div>
+<p>And the NMBE:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.03881894580152023</span>
+</pre>
+</div></div>
+</div>
+<p>Although <code class="docutils literal notranslate"><span class="pre">eensight</span></code> does not use deep learning techniques, the best way to describe the last model is as a combination of <a class="reference external" href="https://en.wikipedia.org/wiki/Autoencoder">autoencoders</a>. One autoencoder model is developed using <code class="docutils literal notranslate"><span class="pre">train</span></code> data: it uses energy consumption data to identify activity levels conditioned on the occupancy-independent features (encoder) and, then, uses the activity levels and the occupancy-independent features to reconstruct the energy consumption (decoder). The other autoencoder model is developed similarly using <code class="docutils literal notranslate"><span class="pre">test</span></code> or <code class="docutils literal notranslate"><span class="pre">apply</span></code> data.</p>
+<p>The M&amp;V model is derived by combining the activity estimation of the <code class="docutils literal notranslate"><span class="pre">test</span></code> or <code class="docutils literal notranslate"><span class="pre">apply</span></code> data (second encoder) with the energy consumption model that was trained using the <code class="docutils literal notranslate"><span class="pre">train</span></code> data (first decoder). This concept is summarized in the following diagram:</p>
+<p><img alt="Autoencoder scheme" src="../../../_images/autoencoder.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary[&quot;CV(RMSE)&quot;][&quot;Autoencoding model w/ markov activity&quot;] = cvrmse(y_test, prediction)
+summary[&quot;NMBE&quot;][&quot;Autoencoding model w/ markov activity&quot;] = nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will also fit and evaluate a predictive model that uses a binary version of the estimated activity levels:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train_act = pd.concat(
+    [
+        X_train.drop([&quot;hour&quot;, &quot;day&quot;, &quot;week&quot;], axis=1),
+        act_train.map(lambda x: 0 if x &lt; 0.5 else 1).to_frame(&quot;activity&quot;)
+    ], 
+    axis=1
+)
+
+model = train_boost(X_train_act, y_train, validation_size=0.2)
+
+X_test_act = pd.concat(
+    [
+        X_test.drop([&quot;hour&quot;, &quot;day&quot;, &quot;week&quot;], axis=1),
+        act_test.map(lambda x: 0 if x &lt; 0.5 else 1).to_frame(&quot;activity&quot;)
+    ], 
+    axis=1
+)
+
+# apply the model that was trained with `train` data
+prediction = pd.Series(
+    model.predict(X_test_act), index=X_test.index
+).clip(lower=0)
+
+cvrmse(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.23237372671484366</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary[&quot;CV(RMSE)&quot;][&quot;Autoencoding model w/ binary activity&quot;] = cvrmse(y_test, prediction)
+summary[&quot;NMBE&quot;][&quot;Autoencoding model w/ binary activity&quot;] = nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Q2: Is this a valid approach for M&amp;V?</strong></p>
+<p>If we treat M&amp;V as a pure prediction task, it is not, and this is because we use <code class="docutils literal notranslate"><span class="pre">test</span></code> consumption data to estimate activity levels in the first place. However, M&amp;V is not a prediction task, it is an impact assessment task. The autoencoding model above is a valid counterfactual model that follows this general template:</p>
+<p><strong>When used on <code class="docutils literal notranslate"><span class="pre">train</span></code> data</strong></p>
+<ol class="simple">
+<li><p>Estimate activity levels (i.e. estimate the value of a mapping variable)</p></li>
+<li><p>Train a model that predicts consumption given activity levels and occupancy-independent features</p></li>
+</ol>
+<p><strong>When used on <code class="docutils literal notranslate"><span class="pre">test</span></code> or <code class="docutils literal notranslate"><span class="pre">apply</span></code> data</strong></p>
+<ol class="simple">
+<li><p>Estimate activity levels (i.e. adjust a mapping variable based on the available data)</p></li>
+<li><p>Apply the model to predict the consumption that corresponds to similar activity levels and occupancy-independent features’ values in the <code class="docutils literal notranslate"><span class="pre">train</span></code> data.</p></li>
+</ol>
+<p>Here, we use this approach for <code class="docutils literal notranslate"><span class="pre">test</span></code> data, but it is mainly meant to be used for data before (<code class="docutils literal notranslate"><span class="pre">train</span></code>) and after (<code class="docutils literal notranslate"><span class="pre">apply</span></code>) an energy retrofit. Since we will start collecting <code class="docutils literal notranslate"><span class="pre">apply</span></code> data during the reporting period, we can estimate activity levels and map their values back to the energy consumption of the <code class="docutils literal notranslate"><span class="pre">train</span></code> data.</p>
+<p>Since the autoencoding models are not valid models for prediction, we don’t evaluate the CV(RMSE) to see how much it was improved. Instead, we look at the CV(RMSE) to ensure that it is close to the results from the monolithic model, which <em>is</em> a valid model for prediction tasks. This will assure us that the proposed approach does not overfit and, as a result, we can trust it when applied on post-retrofit data as well.</p>
+</section>
+<section id="allowing-activity-estimation-to-overfit-the-data">
+<h2><span class="section-number">2.1.4. </span>Allowing activity estimation to overfit the data<a class="headerlink" href="#allowing-activity-estimation-to-overfit-the-data" title="Permalink to this headline">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">eensight</span></code> provides the <code class="docutils literal notranslate"><span class="pre">eensight.methods.prediction.activity.extract_activity</span></code> function as a way to remove from the energy consumption data the impact of the features that are independent of the building’s operation (such as outdoor temperature).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">extract_activity</span></code> function employs a fast, heuristic approach that performs two (2) quantile regressions of the consumption data as function of the occupancy-independent features: one regression at the <code class="docutils literal notranslate"><span class="pre">0.99</span></code> quantile and one at the <code class="docutils literal notranslate"><span class="pre">0.01</span></code> one. Then, all observations are normalized to the <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> interval using the range of the corresponding 0.99-quantile and 0.01-quantile predictions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for feature in X_train.columns:
+    print(feature)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>temperature
+dew point temperature
+relative humidity
+atmospheric pressure
+wind speed
+hour
+day
+week
+</pre></div>
+</div>
+</div>
+</div>
+<p>Drop the calendar features and use all weather features as occupancy-independent features:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train = X_train.drop([&quot;hour&quot;, &quot;day&quot;, &quot;week&quot;], axis=1)
+X_test = X_test.drop([&quot;hour&quot;, &quot;day&quot;, &quot;week&quot;], axis=1)
+
+non_occ_features = [
+    &quot;temperature&quot;, 
+    &quot;dew point temperature&quot;, 
+    &quot;relative humidity&quot;,
+    &quot;atmospheric pressure&quot;, 
+    &quot;wind speed&quot;,
+]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>act_train = extract_activity(X_train, y_train, non_occ_features=non_occ_features)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The estimated activity levels are presented in the following plot:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_data = pd.concat(
+    [
+        X_train[[&quot;temperature&quot;]], 
+        y_train,
+        act_train.to_frame(&quot;activity&quot;)
+    ], 
+    axis=1
+)
+
+plot_data = plot_data.sort_values(by=&quot;temperature&quot;)
+
+fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+plot_data.plot.scatter(&quot;temperature&quot;, &quot;consumption&quot;, c=&quot;activity&quot;, colormap=&#39;viridis&#39;, s=10, ax=ax)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_93_0.png" src="../../../_images/Activity_Estimation_I_93_0.png" />
+</div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">extract_activity</span></code> function <strong>significantly overfits</strong> the data. In other words, it assumes that the <code class="docutils literal notranslate"><span class="pre">activity</span></code> feature explains <strong>all</strong> the variation of the energy consumption that cannot be explained by the occupancy-independent features.</p>
+<p>One way to verify that the <code class="docutils literal notranslate"><span class="pre">extract_activity</span></code> function does indeed overfit the data is to use its result as a feature for predicting energy consumption. For this, we can add the estimated activity to the weather features, and train a new predictive model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train_act = pd.concat(
+    [
+        X_train,
+        act_train.to_frame(&quot;activity&quot;)
+    ],
+    axis=1
+)
+
+model, scores = train_boost(X_train_act, y_train, validation_size=0.2, return_scores=True)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">scores</span></code> variable is a dictionary with the regression metrics for the data used for training (<code class="docutils literal notranslate"><span class="pre">learn</span></code> key) and for validation (<code class="docutils literal notranslate"><span class="pre">validation</span></code> key):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>scores
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+<span style="font-weight: bold">{</span>
+    <span style="color: #008000; text-decoration-color: #008000">'learn'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'RMSE'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2.0079791342431044</span>, <span style="color: #008000; text-decoration-color: #008000">'CVRMSE'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.010091042459968107</span><span style="font-weight: bold">}</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'validation'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'RMSE'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.9624404160731104</span>, <span style="color: #008000; text-decoration-color: #008000">'CVRMSE'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.011481690145716752</span><span style="font-weight: bold">}</span>
+<span style="font-weight: bold">}</span>
+</pre>
+</div></div>
+</div>
+<p>The low CV(RMSE) values are a telltale sign that overfitting is at play.</p>
+<p>We will apply <code class="docutils literal notranslate"><span class="pre">extract_activity</span></code> on the <code class="docutils literal notranslate"><span class="pre">test</span></code> data too:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>act_test = extract_activity(X_test, y_test, non_occ_features=non_occ_features)
+</pre></div>
+</div>
+</div>
+</div>
+<p>And use the trained model to predict on the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_test_act = pd.concat(
+    [
+        X_test,
+        act_test.to_frame(&quot;activity&quot;)
+    ], 
+    axis=1
+)
+
+# apply the model that was trained with `train` data
+prediction = pd.Series(
+    model.predict(X_test_act), index=X_test.index
+).clip(lower=0)
+
+cvrmse(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.07502353241243263</span>
+</pre>
+</div></div>
+</div>
+<blockquote>
+<div><p>Any approach to estimating the <code class="docutils literal notranslate"><span class="pre">activity</span></code> feature that leads to a prediction on the <code class="docutils literal notranslate"><span class="pre">test</span></code> data with a CV(RMSE) significantly lower than the value we achieved with the monolithic model (~ 23%) should be suspected for overfitting the data.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary[&quot;CV(RMSE)&quot;][&quot;Autoencoding model w/ overfitting activity&quot;] = cvrmse(y_test, prediction)
+summary[&quot;NMBE&quot;][&quot;Autoencoding model w/ overfitting activity&quot;] = nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="correcting-the-activity-estimation">
+<h2><span class="section-number">2.1.5. </span>Correcting the activity estimation<a class="headerlink" href="#correcting-the-activity-estimation" title="Permalink to this headline">#</a></h2>
+<p>We can argue that the most useful estimation of the <code class="docutils literal notranslate"><span class="pre">activity</span></code> feature is somewhere between:</p>
+<ul class="simple">
+<li><p>the binary activity (which may underfit because it removes information for intermediate levels of activity) and</p></li>
+<li><p>the one returned by the <code class="docutils literal notranslate"><span class="pre">extract_activity</span></code> (which significantly overfits).</p></li>
+</ul>
+<p>To move between these two extremes, we can impose a <a class="reference external" href="https://en.wikipedia.org/wiki/Sigmoid_function">sigmoid</a> transformation on the estimated activity:</p>
+<div class="math notranslate nohighlight">
+\[\large f(x)=\frac{1}{1+e^{-c_1 * (x-c_2)}}\]</div>
+<p>The idea behind the sigmoid transformation is that many low values of activity may in fact be zero activity plus noise, many high values of activity may in fact be full activity plus noise, and values in between may represent different intermediate conditions. The different shapes of the sigmoid transformation are presented in the next plot:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>labels = []
+c1_values = [5, 10, 20, 30, 50, 100]
+c2 = 0.5
+
+fig = plt.figure(figsize=(12, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+for c1 in c1_values:
+    act_train_trimmed = act_train.pipe(sigmoid, c1, c2).pipe(rescale)
+    ax.scatter(act_train, act_train_trimmed, s=2)
+    labels.append(f&quot;c1 = {c1}, c2 = 0.5&quot;)
+
+ax.set_xlabel(&quot;Original activity levels&quot;)
+ax.set_ylabel(&quot;Transformed activity levels&quot;)
+ax.legend(labels, frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_106_0.png" src="../../../_images/Activity_Estimation_I_106_0.png" />
+</div>
+</div>
+<p>To understand better how we could optimally parameterize the sigmoid transformation, we can use the transformed activity levels as features, fit a predictive model for energy consumption given the transformed activity and weather data in the <code class="docutils literal notranslate"><span class="pre">train</span></code> period, and evaluate it using the transformed activity and the weather data of the <code class="docutils literal notranslate"><span class="pre">test</span></code> period.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>c1_values = [5, 10, 20, 25, 30, 40, 50, 100]
+c2 = 0.5
+accuracy = []
+
+for c1 in c1_values:
+    # we round up and down to remove small variations 
+    # (values at almost one or values that are almost
+    # zero) that may be picked up by a predicitive model   
+    act_train_trimmed = (
+        act_train
+        .pipe(sigmoid, c1, c2)
+        .pipe(rescale)
+        .map(lambda x: 0 if x &lt; 0.1 else 1 if x &gt; 0.9 else x)
+    )
+                                 
+    
+    X_train_act = pd.concat(
+        [
+            X_train,
+            act_train_trimmed.to_frame(&quot;activity&quot;)
+        ],
+        axis=1
+    )
+
+    model = train_boost(X_train_act, y_train)
+    
+    act_test_trimmed = (
+        act_test
+        .pipe(sigmoid, c1, c2)
+        .pipe(rescale)
+        .map(lambda x: 0 if x &lt; 0.1 else 1 if x &gt; 0.9 else x)
+    )
+
+    X_test_act = pd.concat(
+        [
+            X_test,
+            act_test_trimmed.to_frame(&quot;activity&quot;)
+        ],
+        axis=1
+    )
+    
+    pred = pd.Series(model.predict(X_test_act), index=y_test.index)
+    accuracy.append(cvrmse(y_test, pred))
+</pre></div>
+</div>
+</div>
+</div>
+<p>The next plot shows what we should have been expecting: the larger the correction, the higher the CV(RMSE).</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+pd.Series(accuracy, index=c1_values).map(lambda x: 100*x).plot(ax=ax, style=&quot;-o&quot;)
+
+ax.set_xlabel(&quot;Value of c1&quot;)
+ax.set_ylabel(&quot;CV(RMSE) (%)&quot;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_110_0.png" src="../../../_images/Activity_Estimation_I_110_0.png" />
+</div>
+</div>
+<p>But, how do we know which parameters to choose for the sigmoid transformation? In other words,</p>
+<blockquote>
+<div><p><em>How do we know which accuracy levels are low because of overfitting and which are high due to over-correction?</em></p>
+</div></blockquote>
+<p>The approach that <code class="docutils literal notranslate"><span class="pre">eensight</span></code> adopts is based on the idea that the optimal <code class="docutils literal notranslate"><span class="pre">c1</span></code> value is the one that minimizes the difference between the CV(RMSE) of an autoencoding model when applied on the <code class="docutils literal notranslate"><span class="pre">train</span></code> data and the CV(RMSE) of the same model when applied to a denoised/smoothed version of the <code class="docutils literal notranslate"><span class="pre">train</span></code> energy consumption data. Since the <code class="docutils literal notranslate"><span class="pre">extract_activity</span></code> function overfits the energy consumption data, this difference is a good enough proxy for the degree of overfitting.</p>
+<p>The denoised version of the <code class="docutils literal notranslate"><span class="pre">train</span></code> energy consumption data is calculated as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>smoother = KalmanSmoother(component=&quot;level&quot;, component_noise={&quot;level&quot;: 0.1})
+smoother = smoother.smooth(y_train)
+
+y_train_dn = pd.Series(smoother.smooth_data[0], index=y_train.index)
+y_train_dn.loc[y_train[y_train[&quot;consumption&quot;] &lt;= 1e-05].index] = 0
+</pre></div>
+</div>
+</div>
+</div>
+<p>The actual and the denoised energy consumption for the month of January are presented in the next plot:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>month = 1 # January
+
+fig = plt.figure(figsize=(12, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+y_train[&quot;consumption&quot;].loc[y_train.index.month==month].plot(
+    ax=ax, color=&quot;#034e7b&quot;, alpha=0.6
+)
+y_train_dn.loc[y_train_dn.index.month==month].plot(
+    ax=ax, color=&quot;#cc4c02&quot;, alpha=0.6
+)
+
+ax.legend([&quot;Energy consumption&quot;, &quot;Denoised energy consumption&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_114_0.png" src="../../../_images/Activity_Estimation_I_114_0.png" />
+</div>
+</div>
+<p>Next, we will calculate our overfitting proxy for different values of the <code class="docutils literal notranslate"><span class="pre">c1</span></code> parameter (keeping <code class="docutils literal notranslate"><span class="pre">c2</span></code> constant):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>c1_values = [5, 10, 20, 25, 30, 35, 40, 45, 50, 55, 60]
+c2 = 0.5
+results = []
+
+for c1 in c1_values:
+    act_train_trimmed = (
+        act_train
+        .pipe(sigmoid, c1, c2)
+        .pipe(rescale)
+        .map(lambda x: 0 if x &lt; 0.1 else 1 if x &gt; 0.9 else x)
+    )
+                                 
+    X_train_act = pd.concat(
+        [
+            X_train,
+            act_train_trimmed.to_frame(&quot;activity&quot;)
+        ],
+        axis=1
+    )
+
+    model = train_boost(X_train_act, y_train)
+
+    # apply the model on the smoothed data
+    prediction = pd.Series(model.predict(X_train_act), index=y_train.index)
+   
+    results.append(cvrmse(y_train_dn, prediction) - cvrmse(y_train, prediction))
+    
+results = pd.Series(results, index=c1_values)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The evolution of the overfitting proxy is presented below:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+results.map(lambda x: 100*x).plot(ax=ax, style=&quot;-o&quot;)
+
+ax.set_xlabel(&quot;Value of c1&quot;)
+ax.set_ylabel(&quot;Difference in CV(RMSE) (%)&quot;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_118_0.png" src="../../../_images/Activity_Estimation_I_118_0.png" />
+</div>
+</div>
+<p>In order to find a compromise between reducing the difference in the CV(RMSE) values and the degree of correction (value of <code class="docutils literal notranslate"><span class="pre">c1</span></code>), we seek the maximum of the following vector:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>opt = ((results - results.iloc[0]) / results.iloc[0]).abs() - 0.005*results.index
+</pre></div>
+</div>
+</div>
+</div>
+<p>The first term of the formula above rewards reductions in the overfitting proxy compared to its initial value, and the second term penalizes for the value of the <code class="docutils literal notranslate"><span class="pre">c1</span></code> parameter. The evolution of both the overfitting proxy and the optimization objective are presented below:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+layout = (1, 1)
+ax1 = plt.subplot2grid(layout, (0, 0))
+ax2 = ax1.twinx()
+
+results.map(lambda x: 100*x).plot(ax=ax1, style=&quot;-o&quot;, color=&quot;#034e7b&quot;)
+opt.plot(ax=ax2, style=&quot;-o&quot;, color=&quot;#cc4c02&quot;)
+
+ax1.set_xlabel(&quot;Value of c1&quot;)
+ax1.set_ylabel(&quot;Difference in CVRMSE (%)&quot;, color=&quot;#034e7b&quot;)
+ax2.set_ylabel(&quot;Optimization objective&quot;, color=&quot;#cc4c02&quot;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_122_0.png" src="../../../_images/Activity_Estimation_I_122_0.png" />
+</div>
+</div>
+<p>The function <code class="docutils literal notranslate"><span class="pre">eensight.methods.prediction.activity.estimate_activity</span></code> optimizes the values for the parameters <code class="docutils literal notranslate"><span class="pre">c1</span></code> and <code class="docutils literal notranslate"><span class="pre">c2</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">c2</span></code> is selected based on the objective that the output of the <code class="docutils literal notranslate"><span class="pre">extract_activity</span></code> function should approximate the shape implied by the results of the <code class="docutils literal notranslate"><span class="pre">estimate_activity_markov</span></code> function.</p>
+<p>First, we will estimate the activity levels for the <code class="docutils literal notranslate"><span class="pre">train</span></code> and the <code class="docutils literal notranslate"><span class="pre">test</span></code> data using the <code class="docutils literal notranslate"><span class="pre">estimate_activity</span></code> function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>act_train, best_params = estimate_activity(
+    X_train, 
+    y_train, 
+    non_occ_features=non_occ_features, 
+    exog=&quot;temperature&quot;,
+    return_params=True
+)
+
+best_params
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'c1'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23.0</span>, <span style="color: #008000; text-decoration-color: #008000">'c2'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.49708815378308197</span><span style="font-weight: bold">}</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>act_test, best_params = estimate_activity(
+    X_test, 
+    y_test, 
+    non_occ_features=non_occ_features, 
+    exog=&quot;temperature&quot;,
+    return_params=True
+)
+
+best_params
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'c1'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">25.0</span>, <span style="color: #008000; text-decoration-color: #008000">'c2'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4910119743707394</span><span style="font-weight: bold">}</span>
+</pre>
+</div></div>
+</div>
+<p>Then, use the <code class="docutils literal notranslate"><span class="pre">train</span></code> activity levels as features for an energy consumption model,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train_act = pd.concat(
+    [
+        X_train,
+        act_train.to_frame(&quot;activity&quot;)
+    ],
+    axis=1
+)
+</pre></div>
+</div>
+</div>
+</div>
+<p>… fit the predictive model for energy consumption given the estimated activity and the weather data in the <code class="docutils literal notranslate"><span class="pre">train</span></code> period,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = train_boost(X_train_act, y_train)
+</pre></div>
+</div>
+</div>
+</div>
+<p>… and evaluate the model using the estimated activity levels and the weather data of the <code class="docutils literal notranslate"><span class="pre">test</span></code> period:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_test_act = pd.concat(
+    [
+        X_test,
+        act_test.to_frame(&quot;activity&quot;)
+    ],
+    axis=1
+)
+
+prediction = pd.Series(
+    model.predict(X_test_act), index=X_test.index
+).clip(lower=0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The CV(RMSE) is now:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cvrmse(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.22064467499835222</span>
+</pre>
+</div></div>
+</div>
+<p>And the NMBE is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.04838481617334579</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary[&quot;CV(RMSE)&quot;][&quot;Autoencoding model w/ corrected activity&quot;] = cvrmse(y_test, prediction)
+summary[&quot;NMBE&quot;][&quot;Autoencoding model w/ corrected activity&quot;] = nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The estimated activity levels, along with the actual energy consumption for the <code class="docutils literal notranslate"><span class="pre">train</span></code> period and the month of January are presented in the next plot:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>month = 1 # January
+
+fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax1 = plt.subplot2grid(layout, (0, 0))
+ax2 = ax1.twinx()
+
+y_train[&quot;consumption&quot;].loc[y_train.index.month==month].plot(ax=ax1, color=&quot;#034e7b&quot;, alpha=0.6)
+act_train.loc[act_train.index.month==month].plot(ax=ax2, color=&quot;#cc4c02&quot;, alpha=0.6)
+
+ax1.set_ylabel(&quot;Energy consumption&quot;, color=&quot;#034e7b&quot;)
+ax2.set_ylabel(&quot;Estimated activity levels&quot;, color=&quot;#cc4c02&quot;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_138_0.png" src="../../../_images/Activity_Estimation_I_138_0.png" />
+</div>
+</div>
+<p>There is an additional aspect to verify. For the <code class="docutils literal notranslate"><span class="pre">activity</span></code> feature to be useful in the autoencoding scheme, it must be hard to reconstruct the energy consumption when given <code class="docutils literal notranslate"><span class="pre">activity</span></code> alone, but easy if <code class="docutils literal notranslate"><span class="pre">activity</span></code> is provided along with the features that are independent of the building’s operation and were used for activity level estimation.</p>
+<p>We can verify this by dropping the additional features and using only the estimated activity to predict energy consumption. Let’s re-train a model using only the estimated activity levels for the <code class="docutils literal notranslate"><span class="pre">train</span></code> period.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = train_boost(act_train.to_frame(&quot;activity&quot;), y_train, validation_size=0.2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>And evaluate the model on the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>prediction = pd.Series(
+    model.predict(act_test.to_frame(&quot;activity&quot;)), 
+    index=X_test.index
+).clip(lower=0)
+
+cvrmse(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.339086268512483</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary[&quot;CV(RMSE)&quot;][&quot;Autoencoding model w/ activity only&quot;] = cvrmse(y_test, prediction)
+summary[&quot;NMBE&quot;][&quot;Autoencoding model w/ activity only&quot;] = nmbe(y_test, prediction)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The difference is ~50%, which indicates that it is indeed not easy to reconstruct the energy consumption when given <code class="docutils literal notranslate"><span class="pre">activity</span></code> alone.</p>
+<p>The summary of the CV(RMSE) values of all the models explored in this section is presented in the next plot:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary = pd.DataFrame.from_dict(summary)
+
+fig = plt.figure(figsize=(8, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+summary1 = summary[[&quot;CV(RMSE)&quot;]].sort_values(by=&quot;CV(RMSE)&quot;)
+summary2 = summary1.copy()
+
+summary1.loc[&quot;Monolithic model&quot;] = 0
+summary2.loc[[name for name in summary.index if name != &quot;Monolithic model&quot;]] = 0
+
+summary1.plot.barh(ax=ax, color=&quot;#0570b0&quot;)
+summary2.plot.barh(ax=ax, color=&quot;#fd8d3c&quot;, legend=False)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_146_0.png" src="../../../_images/Activity_Estimation_I_146_0.png" />
+</div>
+</div>
+<p>There are two (2) conclusions to be made from the plot above:</p>
+<ol class="simple">
+<li><p>When dealing with buildings where energy consumption is easy to predict using the outdoor temperature and calendar features, the autoencoding model gives results that are similar to the monolithic model.</p></li>
+<li><p>The estimated activity feature does not contain more information than the calendar features that it replaces.</p></li>
+</ol>
+<p>These conclusions should mitigate concerns for potential overfitting due to data leakage, which can arise when dealing with buildings where calendar features are not very predictive of energy consumption, but the autoencoding approach can still provide acceptable results (because it <strong>directly estimates activity levels instead of predicting them</strong>).</p>
+<p>Finally, the summary of the NMBE values of all the models is presented in the next plot:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(8, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+summary1 = summary[[&quot;NMBE&quot;]].sort_values(by=&quot;NMBE&quot;)
+summary2 = summary1.copy()
+
+summary1.loc[&quot;Monolithic model&quot;] = 0
+summary2.loc[[name for name in summary.index if name != &quot;Monolithic model&quot;]] = 0
+
+summary1.plot.barh(ax=ax, color=&quot;#0570b0&quot;)
+summary2.plot.barh(ax=ax, color=&quot;#fd8d3c&quot;, legend=False)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_149_0.png" src="../../../_images/Activity_Estimation_I_149_0.png" />
+</div>
+</div>
+</section>
+<section id="disaggregating-predictions">
+<h2><span class="section-number">2.1.6. </span>Disaggregating predictions<a class="headerlink" href="#disaggregating-predictions" title="Permalink to this headline">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">eensight</span></code> offers a way to split an energy consumption prediction into temperature-dependent and temperature-independent components. For this, it uses the model’s predictions to estimate some first-principle parameters of the underlying building.</p>
+<p>In particular, it assumes that the energy consumption of the building is governed by the following system of equations:</p>
+<p><em>if activity &gt; 0</em> :</p>
+<div class="math notranslate nohighlight">
+\[Q_{con} = A * U * max(0, T_{out} - T_{sp}^{coo}, T_{sp}^{hea} - T_{out})\]</div>
+<div class="math notranslate nohighlight">
+\[Q_{ven} = \frac{1}{3600} * (1- \eta) * c_{p} * \rho * ACH * V * max(0, T_{out} - T_{sp}^{coo}, T_{sp}^{hea} - T_{out})\]</div>
+<p><em>else (activity = 0)</em> :</p>
+<div class="math notranslate nohighlight">
+\[Q_{con} = A * U * max(0, T_{out} - T_{sb}^{coo}, T_{sb}^{hea} - T_{out})\]</div>
+<p><em>for all values of activity</em> :</p>
+<div class="math notranslate nohighlight">
+\[Q_{plug} = \alpha * activity + \beta\]</div>
+<p>where:</p>
+<p><span class="math notranslate nohighlight">\(A\)</span> : Area of building exposed to outdoors <span class="math notranslate nohighlight">\((m^2)\)</span></p>
+<p><span class="math notranslate nohighlight">\(U\)</span> : U value of envelope <span class="math notranslate nohighlight">\((W/(m^2*K))\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_{out}\)</span> : Outdoor air temperature <span class="math notranslate nohighlight">\((K)\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_{sp}^{coo}\)</span> : Setpoint indoor air temperature for cooling <span class="math notranslate nohighlight">\((K)\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_{sp}^{hea}\)</span> : Setpoint indoor air temperature for heating <span class="math notranslate nohighlight">\((K)\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_{sb}^{coo}\)</span> : Setback indoor air temperature for cooling <span class="math notranslate nohighlight">\((K)\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_{sb}^{hea}\)</span> : Setback indoor air temperature for heating <span class="math notranslate nohighlight">\((K)\)</span></p>
+<p><span class="math notranslate nohighlight">\(\eta\)</span> : Heat recovery efficiency (%)</p>
+<p><span class="math notranslate nohighlight">\(c_{p}\)</span> : Specific heat capacity of air <span class="math notranslate nohighlight">\((J/(kg*K))\)</span></p>
+<p><span class="math notranslate nohighlight">\(\rho\)</span> : Density of air <span class="math notranslate nohighlight">\((kg/m^3)\)</span></p>
+<p><span class="math notranslate nohighlight">\(ACH\)</span> : Air changes per hour</p>
+<p><span class="math notranslate nohighlight">\(V\)</span> : Air volume of building <span class="math notranslate nohighlight">\((m^3)\)</span></p>
+<p><span class="math notranslate nohighlight">\(\alpha, \beta\)</span> : Parameters for a linear relationship between activity levels and plug load</p>
+<p><span class="math notranslate nohighlight">\(Q_{con}\)</span> : Air conditioning load <span class="math notranslate nohighlight">\((W)\)</span></p>
+<p><span class="math notranslate nohighlight">\(Q_{ven}\)</span> : Ventilation load <span class="math notranslate nohighlight">\((W)\)</span></p>
+<p><span class="math notranslate nohighlight">\(Q_{plug}\)</span> : Plug load <span class="math notranslate nohighlight">\((W)\)</span></p>
+<p>The estimation of the building’s parameters is be done using <a class="reference external" href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Markov chain Monte Carlo</a>, so we need to define the priors for the parameters:</p>
+<div class="math notranslate nohighlight">
+\[U \sim Uniform(0.5, 5)\]</div>
+<div class="math notranslate nohighlight">
+\[T_{sp}^{coo} \sim Uniform(273.15 + 24, 273.15 + 27)\]</div>
+<div class="math notranslate nohighlight">
+\[T_{sp}^{hea} \sim Uniform(273.15 + 20, 273.15 + 24)\]</div>
+<div class="math notranslate nohighlight">
+\[T_{sb}^{coo} \sim Uniform(273.15 + 24, 273.15 + 35)\]</div>
+<div class="math notranslate nohighlight">
+\[T_{sb}^{hea} \sim Uniform(273.15 + 5, 273.15 + 20)\]</div>
+<div class="math notranslate nohighlight">
+\[\eta \sim Uniform(0, 1)\]</div>
+<div class="math notranslate nohighlight">
+\[ACH \sim Uniform(0.3, 5)\]</div>
+<div class="math notranslate nohighlight">
+\[\alpha \sim Uniform(0, max(consumption) - min(consumption))\]</div>
+<div class="math notranslate nohighlight">
+\[\beta \sim Uniform(0, min(consumption))\]</div>
+<p>The relevant functionality is provided by the function <code class="docutils literal notranslate"><span class="pre">eensight.methods.prediction.baseline.explain_predicition</span></code>.</p>
+<p>First, <code class="docutils literal notranslate"><span class="pre">explain_predicition</span></code> defines a log-prior function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def log_prior(theta, y):
+    u_value, T_sp_coo, T_sp_hea, T_sb_coo, T_sb_hea, eta, ach, alpha, beta = theta
+    
+    if (
+        (0.5 &lt; u_value &lt; 5)
+        and (273.15 + 24 &lt; T_sp_coo &lt; 273.15 + 27)
+        and (273.15 + 20 &lt; T_sp_hea &lt; 273.15 + 24)
+        and (273.15 + 24 &lt; T_sb_coo &lt; 273.15 + 35)
+        and (273.15 + 5 &lt; T_sb_hea &lt; 273.15 + 20)
+        and (0 &lt; eta &lt; 1)
+        and (0.3 &lt; ach &lt; 5)
+        and (0 &lt; alpha &lt; y.max() - y.min())
+        and (0 &lt; beta &lt; y.min())
+    ):
+        return 0.0
+    
+    return -np.inf
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, it defines a forward model:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def forward_model(theta, temperature, activity, A, V, cp, rho):
+    u_value, T_sp_coo, T_sp_hea, T_sb_coo, T_sb_hea, eta, ach, alpha, beta = theta
+
+    # air conditioning load when activity is positive
+    cond_load_on = (
+        A
+        * u_value
+        * np.maximum(temperature - T_sp_coo, T_sp_hea - temperature)
+        .clip(lower=0)
+        .pipe(lambda x: x.mask(activity &lt;= 1e-05, 0))
+    )
+
+    # ventilation load
+    ven_load = (
+        (1 / 3600)
+        * (1 - eta)
+        * cp
+        * rho
+        * ach
+        * V
+        * np.maximum(temperature - T_sp_coo, T_sp_hea - temperature)
+        .clip(lower=0)
+        .pipe(lambda x: x.mask(activity &lt;= 1e-05, 0))
+    )
+
+    # air conditioning load when activity is zero
+    cond_load_off = (
+        A
+        * u_value
+        * np.maximum(temperature - T_sb_coo, T_sb_hea - temperature)
+        .clip(lower=0)
+        .pipe(lambda x: x.mask(activity &gt; 1e-05, 0))
+    )
+
+    # plug load
+    plug_load = alpha * activity + beta
+
+    return cond_load_on, ven_load, cond_load_off, plug_load
+</pre></div>
+</div>
+</div>
+</div>
+<p>Defines the log-likelihood:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def log_likelihood(theta, temperature, activity, y, A, V, cp, rho):
+    _, T_sp_coo, T_sp_hea, T_sb_coo, T_sb_hea, eta, _, _, _ = theta
+
+    if (
+        (T_sp_coo &lt; T_sp_hea)
+        or (T_sb_coo &lt; T_sb_hea)
+        or (T_sp_coo &gt; T_sb_coo)
+        or (T_sp_hea &lt; T_sb_hea)
+        or (eta &gt; 1)
+        or (eta &lt; 0)
+    ):
+        return -np.inf
+
+    cond_load_on, ven_load, cond_load_off, plug_load = forward_model(
+        theta, temperature, activity, A, V, cp, rho
+    )
+    total_load = cond_load_on + ven_load + cond_load_off + plug_load
+
+    return -0.5 * np.sum((y - total_load) ** 2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The full log-probability function is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def log_probability(theta, temperature, activity, y, A, V, cp, rho):
+    lp = log_prior(theta, y)
+
+    if not np.isfinite(lp):
+        return -np.inf
+
+    return lp + log_likelihood(theta, temperature, activity, y, A, V, cp, rho)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The function to run the MCMC estimations is defined as:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def run_mcmc(X, y, *, A, V, cp, rho):
+    nwalkers = 100
+    ndim = 9 # number of parameters to estimate
+
+    temperature = X[&quot;temperature&quot;] + 273.15
+    activity = X[&quot;activity&quot;]
+
+    sampler = emcee.EnsembleSampler(
+        nwalkers, ndim, log_probability, args=(temperature, activity, y, A, V, cp, rho)
+    )
+
+    # initial values
+    pos = np.array(
+        [
+            1,              # u_value 
+            273.15 + 25,    # T_sp_coo 
+            273.15 + 20,    # T_sp_hea 
+            273.15 + 35,    # T_sb_coo
+            273.15 + 10,    # T_sb_hea
+            0.5,            # eta 
+            2,              # ach
+            y.min(),        # alpha
+            y.min()/2       # beta
+        ]
+    )
+    pos = np.tile(pos, (nwalkers, 1)) + np.random.randn(nwalkers, ndim)
+
+    with warnings.catch_warnings():
+        warnings.filterwarnings(&quot;ignore&quot;, category=RuntimeWarning)
+        sampler.run_mcmc(pos, 1000, progress=False)
+    
+    chain = sampler.get_chain(discard=100, thin=15, flat=True)
+    return chain
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s estimate the parameters of the building based on the predictions of an autoencoding model that has been trained using <code class="docutils literal notranslate"><span class="pre">train</span></code> data and applied on <code class="docutils literal notranslate"><span class="pre">test</span></code> data.</p>
+<p>Get the prediction:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train_act = pd.concat(
+    [
+        X_train,
+        act_train.to_frame(&quot;activity&quot;)
+    ],
+    axis=1
+)
+
+model = train_boost(X_train_act, y_train, validation_size=0.2)
+
+X_test_act = pd.concat(
+    [
+        X_test,
+        act_test.to_frame(&quot;activity&quot;)
+    ],
+    axis=1
+)
+
+prediction = pd.Series(
+    model.predict(X_test_act), index=X_test.index
+).clip(lower=0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Estimate the building’s parameters:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_test_act = X_test_act.dropna()
+prediction = prediction.loc[X_test_act.index]
+
+samples = run_mcmc(X_test_act, prediction, A=30, V=90, cp=1.005, rho=1.2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The estimated values for the parameters are:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>parameters = [
+    &quot;u_value&quot;, 
+    &quot;T_sp_coo&quot;, 
+    &quot;T_sp_hea&quot;, 
+    &quot;T_sb_coo&quot;, 
+    &quot;T_sb_hea&quot;, 
+    &quot;eta&quot;, 
+    &quot;ach&quot;, 
+    &quot;alpha&quot;, 
+    &quot;beta&quot;
+]
+
+theta = samples.mean(axis=0)
+
+results = {
+    param: val - 273.15 
+           if param in [&quot;T_sp_coo&quot;, &quot;T_sp_hea&quot;, &quot;T_sb_coo&quot;, &quot;T_sb_hea&quot;, ] 
+           else val
+           for param, val in zip(parameters, theta)
+}
+
+table = []
+
+for param, val in results.items():
+    table.append([param, round(val, 2)])
+    
+print(tabulate(table, headers=[&quot;Parameter&quot;, &quot;Estimated value&quot;]))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parameter      Estimated value
+-----------  -----------------
+u_value                   0.86
+T_sp_coo                 24.41
+T_sp_hea                 20.58
+T_sb_coo                 28.63
+T_sb_hea                  8.52
+eta                       0.51
+ach                       2.94
+alpha                    59.74
+beta                     50.27
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can estimate the HVAC load based on the forward model and the estimated parameters for the building:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>temperature = X_test_act[&quot;temperature&quot;] + 273.15
+activity = X_test_act[&quot;activity&quot;]
+
+cond_load_on, ven_load, cond_load_off, plug_load = forward_model(
+    theta, 
+    temperature, 
+    activity,
+    30, 
+    90, 
+    1.005, 
+    1.2
+)
+
+hvac_load = cond_load_on.add(cond_load_off).add(ven_load)
+</pre></div>
+</div>
+</div>
+</div>
+<p>… and plot the HVAC load estimation along with the actual energy consumption:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+y_test[&quot;consumption&quot;].plot(ax=ax, alpha=0.5)
+hvac_load.plot(ax=ax, alpha=0.5)
+
+ax.set_xlabel(&quot;&quot;)
+ax.legend([&quot;Actual total consumption&quot;, &quot;Predicted HVAC consumption&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_174_0.png" src="../../../_images/Activity_Estimation_I_174_0.png" />
+</div>
+</div>
+<p>And we will do the same for the predicted plug load:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+y_test[&quot;consumption&quot;].plot(ax=ax, alpha=0.5)
+plug_load.plot(ax=ax, alpha=0.5)
+
+ax.set_xlabel(&quot;&quot;)
+ax.legend([&quot;Actual total consumption&quot;, &quot;Predicted plug consumption&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_176_0.png" src="../../../_images/Activity_Estimation_I_176_0.png" />
+</div>
+</div>
+<p>There is the final argument to support the claim that the estimated activity levels do not cause overfitting due to data leakage:</p>
+<blockquote>
+<div><p>If data leakage caused overfitting, the estimated plug load would explain most of the energy consumption, and the estimated HVAC load will be minimal.</p>
+</div></blockquote>
+<p>Finally, we can plot the total predicted consumption along with the actual one:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+total_predicted = hvac_load + plug_load
+
+y_test[&quot;consumption&quot;].plot(ax=ax, alpha=0.5)
+total_predicted.plot(ax=ax, alpha=0.5)
+
+ax.set_xlabel(&quot;&quot;)
+ax.legend([&quot;Actual total consumption&quot;, &quot;Predicted total consumption&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_I_179_0.png" src="../../../_images/Activity_Estimation_I_179_0.png" />
+</div>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters\05\01"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../Counterfactuals.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">2. </span>M&amp;V is counterfactual prediction</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../02/Counterfactual_Impact.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2.2. </span>Counterfactual predictions for impact variables</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ani Adhikari and John DeNero and David Wagner<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
