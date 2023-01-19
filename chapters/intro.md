@@ -2,6 +2,8 @@
 
  by Sotiris Papadelis [HEBES Intelligence](https://www.hebes.io/).
 
+[![DOI](https://zenodo.org/badge/590164136.svg)](https://zenodo.org/badge/latestdoi/590164136)
+
 This book presents in detail the measurement and verification (M&V) methodology that has been developed by the H2020 project [SENSEI - Smart Energy Services to Improve the Energy Efficiency of the European Building Stock](https://senseih2020.eu/). 
 
 Renewable energy generation assets are financed based on the value of the energy they will produce. Typically, the owner of a generation asset secures a Power Purchase Agreement (PPA) or an Energy Supply Contract (ESC) for selling the generated energy, and this agreement can be used for attracting investment capital to purchase and install the necessary equipment. Based on this clear value proposition, a series of business model innovations have come to exist and offer solutions for the financing and deployment of renewable energy generation assets, the aggregation of the produced energy, and the securitization of the expected revenues.
