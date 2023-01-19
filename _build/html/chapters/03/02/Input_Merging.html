@@ -1,0 +1,905 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>3.2. The index alignment and data merging stage &#8212; Rethinking Measurement and Verification of Energy Savings</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://hebes-io.github.io/rethinking/chapters/03/02/Input_Merging.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="3.3. Evaluation of input data adequacy" href="../03/Data_Adequacy.html" />
+    <link rel="prev" title="3.1. The input data validation stage" href="../01/Input_Validation.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MDNY55CE4R"></script>
+<script>
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){ dataLayer.push(arguments); }
+                    gtag('js', new Date());
+                    gtag('config', 'G-MDNY55CE4R');
+                </script>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/favicon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Rethinking Measurement and Verification of Energy Savings</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01/Background.html">
+   1. The concept of measurement and verification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01/01/Traditional.html">
+     1.1. The traditional M&amp;V approach
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01/02/Counterfactuals.html">
+     1.2. A broader way to frame the M&amp;V task
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02/Design_Principles.html">
+   2. The design principles of eensight
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../Preprocessing.html">
+   3. The preprocess pipeline
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01/Input_Validation.html">
+     3.1. The input data validation stage
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     3.2. The index alignment and data merging stage
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03/Data_Adequacy.html">
+     3.3. Evaluation of input data adequacy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../04/Predict.html">
+   4. The predict, evaluate and adjust pipelines
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../04/01/Activity_Estimation_I.html">
+     4.1. Activity Estimation: Part I
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../04/02/Counterfactual_Impact.html">
+     4.2. Counterfactual predictions for impact variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../04/03/Activity_Estimation_II.html">
+     4.3. Activity Estimation: Part II
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../04/04/Counterfactual_Mapping.html">
+     4.4. Counterfactual predictions for mapping variables
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/hebes-io/rethinking/main?urlpath=tree/chapters/03/02/Input_Merging.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/hebes-io/rethinking"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/chapters/03/02/Input_Merging.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-dataset">
+   3.2.1. Load dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#align-dataset">
+   3.2.2. Align dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parameters">
+   3.2.3. Parameters
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>The index alignment and data merging stage</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-dataset">
+   3.2.1. Load dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#align-dataset">
+   3.2.2. Align dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parameters">
+   3.2.3. Parameters
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="the-index-alignment-and-data-merging-stage">
+<h1><span class="section-number">3.2. </span>The index alignment and data merging stage<a class="headerlink" href="#the-index-alignment-and-data-merging-stage" title="Permalink to this headline">#</a></h1>
+<p>In this section, the alignment and merging steps are presented through an example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext autoreload
+%autoreload 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from eensight.config import ConfigLoader
+from eensight.methods.preprocessing.validation import validate_dataset
+from eensight.methods.preprocessing.alignment import (
+    get_hourly_timesteps, 
+    get_time_step,
+    _align_by_value,
+    _align_by_distance,
+    align_to_index,
+    merge_data_list
+)
+from eensight.settings import PROJECT_PATH
+from eensight.utils import load_catalog
+
+plt.style.use(&quot;bmh&quot;)
+
+%matplotlib inline
+</pre></div>
+</div>
+</div>
+</div>
+<section id="load-dataset">
+<h2><span class="section-number">3.2.1. </span>Load dataset<a class="headerlink" href="#load-dataset" title="Permalink to this headline">#</a></h2>
+<p>First, we load the catalog for one of the available datasets (the one with <code class="docutils literal notranslate"><span class="pre">site_id=&quot;b03&quot;</span></code>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>catalog = load_catalog(store_uri=&quot;../../../data&quot;, site_id=&quot;b03&quot;, namespace=&quot;train&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Get and validate the raw input data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>features = catalog.load(&quot;train.input-features&quot;)
+labels = catalog.load(&quot;train.input-labels&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def validate(data, feature_name):
+    for name, load_fn in data.items():
+        if name.split(&quot;.&quot;)[0] == feature_name:
+            return validate_dataset(load_fn())
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>consumption = validate(labels, &quot;consumption&quot;)
+temperature = validate(features, &quot;temperature&quot;)
+holidays = validate(features, &quot;holidays&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Check that the labels dataset has only one time step with duration that is less than one (1) day.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>assert len(get_hourly_timesteps(consumption.index)) == 1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="align-dataset">
+<h2><span class="section-number">3.2.2. </span>Align dataset<a class="headerlink" href="#align-dataset" title="Permalink to this headline">#</a></h2>
+<p>If the labels dataset has indeed only one time step, its index becomes the primary index for all features. Alignment is needed only when features have different time steps than the labels (for instance, hourly temperature data, but 15-minute interval consumption data).</p>
+<p>This is the case for this dataset:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&quot;Time step of consumption data: {get_time_step(consumption.index)}&quot;)
+print(f&quot;Time step of temperature data: {get_time_step(temperature.index)}&quot;)
+print(f&quot;Time step of holiday data: {get_time_step(holidays.index)}&quot;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time step of consumption data: 0 days 00:15:00
+Time step of temperature data: 0 days 00:30:00
+Time step of holiday data: 1 days 00:00:00
+</pre></div>
+</div>
+</div>
+</div>
+<p>Index alignment is performed by the <code class="docutils literal notranslate"><span class="pre">eensight.methods.preprocessing.alignment.align_to_index</span></code> function.</p>
+<p>For data that is <em>numerical</em>, <code class="docutils literal notranslate"><span class="pre">align_to_index</span></code> provides two (2) approaches for alignment. The first approach interpolates the data to match the primary index, the second matches the primary index on the nearest key of the feature’s index.</p>
+<p>Both approaches are controlled by a <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> parameter (<code class="docutils literal notranslate"><span class="pre">pandas.Timedelta</span></code>):</p>
+<ul class="simple">
+<li><p>For the first approach, <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> dictates how far interpolation can reach. As an example, outdoor temperature changes slowly, so interpolating over 2 or 3 hours should not be a problem. Other features may change faster, and a shorter <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> may be needed for them.</p></li>
+<li><p>For the second approach, <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> is the maximum time distance to match a timestamp of the input dataframe with a timestamp in the primary index.</p></li>
+</ul>
+<p><strong>Alignment by interpolation:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>temperature_aligned = align_to_index(
+    temperature, 
+    consumption.index, 
+    mode=&quot;value&quot;, 
+    tolerance=pd.Timedelta(minutes=60*3)
+)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>assert temperature_aligned.index.equals(consumption.index)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>original = temperature.resample(&quot;1H&quot;).mean()
+
+aligned = temperature_aligned.resample(&quot;1H&quot;).mean()
+differences = original - aligned
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(14, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+differences.loc[aligned.index].plot(ax=ax, alpha=0.7)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Input_Merging_20_0.png" src="../../../_images/Input_Merging_20_0.png" />
+</div>
+</div>
+<p><strong>Alignment by timestamp distance:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>temperature_aligned = align_to_index(
+    temperature, 
+    consumption.index, 
+    mode=&quot;distance&quot;, 
+    tolerance=pd.Timedelta(minutes=60*3)
+)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>aligned = temperature_aligned.resample(&quot;1H&quot;).mean()
+differences = original - aligned
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(14, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+differences.loc[aligned.index].plot(ax=ax, alpha=0.7)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Input_Merging_24_0.png" src="../../../_images/Input_Merging_24_0.png" />
+</div>
+</div>
+<p>Although the differences are small, alignment by interpolation is more accurate than alignment by timestamp distance.</p>
+<p>For data that is both <em>numerical</em> and <em>cumulative</em>, alignment is done by first calculating the cumulative sum of the feature to align, then applying the alignment method (by interpolation or by distance), and finally calculating the first discrete differences so that to reverse the cumulative sum transformation.</p>
+<p>For demonstration purposes, we can align the consumption (which is <em>numerical</em> and <em>cumulative</em>) to the index of the temperature:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>consumption_aligned = align_to_index(
+    consumption, 
+    temperature.index, 
+    mode=&quot;value&quot;, 
+    cumulative=True,
+    tolerance=pd.Timedelta(minutes=60)
+)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[01/19/23 18:42:14] </span><span style="color: #000080; text-decoration-color: #000080">INFO    </span> Cumulative feature consumption normalized by time step length.        <a href="file://C:\Users\spapadelis\Desktop\eensight\src\eensight\methods\preprocessing\alignment.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">alignment.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file://C:\Users\spapadelis\Desktop\eensight\src\eensight\methods\preprocessing\alignment.py#197" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">197</span></a>
+</pre>
+</div></div>
+</div>
+<p><strong>Important Note!</strong></p>
+<blockquote>
+<div><p>When <code class="docutils literal notranslate"><span class="pre">align_to_index</span></code> aligns features to the labels’ index, any feature that is both <strong>numerical</strong> and <strong>cumulative</strong> will be <strong>normalized</strong> by dividing its value at any given timestamp by the number of minutes between this timestamp and the immediately preceding one. This is done so that to avoid misleading values when the primary index has time gaps.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>original = consumption.div(
+    consumption.index.to_series().diff().map(lambda x: x.total_seconds() / 60),
+    axis=0
+)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(14, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+original.plot(ax=ax, alpha=0.6)
+consumption_aligned.plot(ax=ax, alpha=0.4)
+ax.legend([&quot;Original consumption data&quot;, &quot;Aligned consumption data&quot;])
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Input_Merging_30_0.png" src="../../../_images/Input_Merging_30_0.png" />
+</div>
+</div>
+<p>Alignment of categorical features is always done by timestamp distance.</p>
+<p><code class="docutils literal notranslate"><span class="pre">align_to_index</span></code> can align daily data to sub-daily indices:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>holidays_aligned = align_to_index(holidays, consumption.index)
+</pre></div>
+</div>
+</div>
+</div>
+<p>This task does not need a <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> parameter. The daily data is just repeated for every timestamp that corresponds to the relevant day:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>holidays_aligned[holidays_aligned.index.date == holidays.index[-1].date()]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>holiday</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2016-12-26 00:00:00</th>
+      <td>St Stephen's Day</td>
+    </tr>
+    <tr>
+      <th>2016-12-26 00:15:00</th>
+      <td>St Stephen's Day</td>
+    </tr>
+    <tr>
+      <th>2016-12-26 00:30:00</th>
+      <td>St Stephen's Day</td>
+    </tr>
+    <tr>
+      <th>2016-12-26 00:45:00</th>
+      <td>St Stephen's Day</td>
+    </tr>
+    <tr>
+      <th>2016-12-26 01:00:00</th>
+      <td>St Stephen's Day</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2016-12-26 22:45:00</th>
+      <td>St Stephen's Day</td>
+    </tr>
+    <tr>
+      <th>2016-12-26 23:00:00</th>
+      <td>St Stephen's Day</td>
+    </tr>
+    <tr>
+      <th>2016-12-26 23:15:00</th>
+      <td>St Stephen's Day</td>
+    </tr>
+    <tr>
+      <th>2016-12-26 23:30:00</th>
+      <td>St Stephen's Day</td>
+    </tr>
+    <tr>
+      <th>2016-12-26 23:45:00</th>
+      <td>St Stephen's Day</td>
+    </tr>
+  </tbody>
+</table>
+<p>96 rows × 1 columns</p>
+</div></div></div>
+</div>
+<p>Finally, aligning sub-daily data to a daily index is not supported. This should be part of a feature engineering process and not a data preprocessing one.</p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">eensight.methods.preprocessing.alignment.merge_data_list</span></code> aligns all feature dataframes in a provided list if alignment is needed, and merges them into one features dataset:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mode = {&quot;temperature&quot;: &quot;value&quot;}
+tolerance = {&quot;temperature&quot;: pd.Timedelta(minutes=60*3)}
+
+merged = merge_data_list([temperature, holidays], 
+                         primary=consumption.index, 
+                         mode=mode, 
+                         tolerance=tolerance
+)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>assert merged.index.equals(consumption.index)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="parameters">
+<h2><span class="section-number">3.2.3. </span>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">#</a></h2>
+<p>The parameters of this stage - as they can be found in the <code class="docutils literal notranslate"><span class="pre">eensight/conf/base/parameters/preprocess.yml</span></code> file are:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>params = ConfigLoader(PROJECT_PATH / &quot;conf&quot;).get(&quot;parameters*&quot;, &quot;parameters*/**&quot;, &quot;**/parameters*&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>{&quot;alignment&quot;: params[&quot;alignment&quot;]}
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+<span style="font-weight: bold">{</span>
+    <span style="color: #008000; text-decoration-color: #008000">'alignment'</span>: <span style="font-weight: bold">{</span>
+        <span style="color: #008000; text-decoration-color: #008000">'mode'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'temperature'</span>: <span style="color: #008000; text-decoration-color: #008000">'value'</span><span style="font-weight: bold">}</span>,
+        <span style="color: #008000; text-decoration-color: #008000">'tolerance'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'temperature'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">180</span><span style="font-weight: bold">}</span>,
+        <span style="color: #008000; text-decoration-color: #008000">'cumulative'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'temperature'</span>: <span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>, <span style="color: #008000; text-decoration-color: #008000">'consumption'</span>: <span style="color: #00ff00; text-decoration-color: #00ff00; font-style: italic">True</span><span style="font-weight: bold">}</span>
+    <span style="font-weight: bold">}</span>
+<span style="font-weight: bold">}</span>
+</pre>
+</div></div>
+</div>
+<p>These parameters can be changed from the command line. As an example, suppose that there is an additional feature <code class="docutils literal notranslate"><span class="pre">solar_radiation</span></code> and maybe <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> for solar radiation should be only 15 minutes. In such a case, the following option can be passed to the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">param</span> <span class="n">alignment</span><span class="o">.</span><span class="n">tolerance</span><span class="o">.</span><span class="n">solar_radiation</span><span class="o">=</span><span class="mi">15</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters\03\02"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../01/Input_Validation.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">3.1. </span>The input data validation stage</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../03/Data_Adequacy.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3.3. </span>Evaluation of input data adequacy</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    <div class="extra_footer">
+      <div>
+  <div style="width:49%;Float:left;display:inline;">
+    <div>By Sotiris Papadelis</div>
+    <div>&#169; Copyright 2022-2023</div>
+  </div>
+  <div style="width:49%;Float:right;display:inline;">
+    <img align="left" width="500" src="https://github.com/hebes-io/eensight/raw/master/EC_support.png">
+  </div>
+</div>
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

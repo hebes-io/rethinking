@@ -1,0 +1,45 @@
+#######################################################################################
+# Book settings
+title: Rethinking Measurement and Verification of Energy Savings
+author: ""
+email: info@hebes.io
+logo                        : "favicon.png"  
+exclude_patterns            : ["README.md"]  
+
+#######################################################################################
+# Execution settings
+execute:
+  execute_notebooks         : 'off'  
+  timeout                   : 600    
+
+#######################################################################################
+# HTML-specific settings
+html:
+  favicon                   : "favicon.png"  
+  navbar_number_sections    : True  
+  google_analytics_id       : "G-MDNY55CE4R"
+  home_page_in_navbar       : false
+  baseurl                   : "https://hebes-io.github.io/rethinking/"
+  use_repository_button     : true
+  use_edit_page_button      : false
+  use_issues_button         : false
+  extra_footer: |
+    <div>
+      <div style="width:49%;Float:left;display:inline;">
+        <div>By Sotiris Papadelis</div>
+        <div>&#169; Copyright 2022-2023</div>
+      </div>
+      <div style="width:49%;Float:right;display:inline;">
+        <img align="left" width="500" src="https://github.com/hebes-io/eensight/raw/master/EC_support.png">
+      </div>
+    </div>
+
+#######################################################################################
+repository:
+  url                       : https://github.com/hebes-io/rethinking 
+  branch                    : main 
+
+sphinx:
+  config:
+    html_show_copyright: false
+    html_extra_path: ['assets']

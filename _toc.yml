@@ -1,0 +1,38 @@
+format: jb-article
+root: chapters/intro
+title: Introduction
+options:
+  numbered: true
+sections:
+- file: chapters/01/Background
+  title: The concept of measurement and verification
+  sections:
+  - file: chapters/01/01/Traditional
+    title: The traditional M&V approach
+  - file: chapters/01/02/Counterfactuals
+    title: A broader way to frame the M&V task
+- file: chapters/02/Design_Principles
+  title: The design principles of eensight
+- file: chapters/03/Preprocessing
+  title: The preprocess pipeline
+  sections:
+  - file: chapters/03/01/Input_Validation
+    title: The input data validation stage
+  - file: chapters/03/02/Input_Merging
+    title: The index alignment and data merging stage
+  - file: chapters/03/03/Data_Adequacy
+    title: Evaluation of input data adequacy
+- file: chapters/04/Predict
+  title: The predict, evaluate and adjust pipelines
+  sections:
+  - file: chapters/04/01/Activity_Estimation_I
+    title: "Activity Estimation: Part I"
+  - file: chapters/04/02/Counterfactual_Impact
+    title: Counterfactual predictions for impact variables
+  - file: chapters/04/03/Activity_Estimation_II
+    title: "Activity Estimation: Part II"
+  - file: chapters/04/04/Counterfactual_Mapping
+    title: Counterfactual predictions for mapping variables
+  
+
+    

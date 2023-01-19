@@ -1,0 +1,1047 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>4.3. Estimation of activity levels: Part II &#8212; Rethinking Measurement and Verification of Energy Savings</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://hebes-io.github.io/rethinking/chapters/04/03/Activity_Estimation_II.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="4.4. Counterfactual predictions for mapping variables" href="../04/Counterfactual_Mapping.html" />
+    <link rel="prev" title="4.2. Counterfactual predictions for impact variables" href="../02/Counterfactual_Impact.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MDNY55CE4R"></script>
+<script>
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){ dataLayer.push(arguments); }
+                    gtag('js', new Date());
+                    gtag('config', 'G-MDNY55CE4R');
+                </script>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/favicon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Rethinking Measurement and Verification of Energy Savings</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01/Background.html">
+   1. The concept of measurement and verification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01/01/Traditional.html">
+     1.1. The traditional M&amp;V approach
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01/02/Counterfactuals.html">
+     1.2. A broader way to frame the M&amp;V task
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02/Design_Principles.html">
+   2. The design principles of eensight
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../03/Preprocessing.html">
+   3. The preprocess pipeline
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03/01/Input_Validation.html">
+     3.1. The input data validation stage
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03/02/Input_Merging.html">
+     3.2. The index alignment and data merging stage
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03/03/Data_Adequacy.html">
+     3.3. Evaluation of input data adequacy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../Predict.html">
+   4. The predict, evaluate and adjust pipelines
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01/Activity_Estimation_I.html">
+     4.1. Activity Estimation: Part I
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02/Counterfactual_Impact.html">
+     4.2. Counterfactual predictions for impact variables
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.3. Activity Estimation: Part II
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04/Counterfactual_Mapping.html">
+     4.4. Counterfactual predictions for mapping variables
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/hebes-io/rethinking/main?urlpath=tree/chapters/04/03/Activity_Estimation_II.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/hebes-io/rethinking"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/chapters/04/03/Activity_Estimation_II.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-b04-dataset">
+   4.3.1. The
+   <em>
+    b04
+   </em>
+   dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-predict-pipeline">
+   4.3.2. The
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     predict
+    </span>
+   </code>
+   pipeline
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-predict-pipeline-with-autoencoding">
+   4.3.3. The
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     predict
+    </span>
+   </code>
+   pipeline with autoencoding
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Estimation of activity levels: Part II</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-b04-dataset">
+   4.3.1. The
+   <em>
+    b04
+   </em>
+   dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-predict-pipeline">
+   4.3.2. The
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     predict
+    </span>
+   </code>
+   pipeline
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-predict-pipeline-with-autoencoding">
+   4.3.3. The
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     predict
+    </span>
+   </code>
+   pipeline with autoencoding
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="estimation-of-activity-levels-part-ii">
+<h1><span class="section-number">4.3. </span>Estimation of activity levels: Part II<a class="headerlink" href="#estimation-of-activity-levels-part-ii" title="Permalink to this headline">#</a></h1>
+<p>This section explains how <code class="docutils literal notranslate"><span class="pre">activity</span></code> is estimated for intermittent (lumpy, volatile, and/or unpredictable) energy consumption.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext autoreload
+%autoreload 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+import pandas as pd
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+
+from eensight.methods.prediction.baseline import UsagePredictor
+from eensight.methods.prediction.activity import estimate_activity
+from eensight.methods.prediction.metrics import cvrmse, nmbe
+from eensight.utils import load_catalog
+
+plt.style.use(&quot;bmh&quot;)
+
+%matplotlib inline
+</pre></div>
+</div>
+</div>
+</div>
+<section id="the-b04-dataset">
+<h2><span class="section-number">4.3.1. </span>The <em>b04</em> dataset<a class="headerlink" href="#the-b04-dataset" title="Permalink to this headline">#</a></h2>
+<p>The <em>b04</em> data corresponds to the whole building gas meter consumption from the <a class="reference external" href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/FIE0S4">AMPds2 Dataset</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>catalog_train = load_catalog(store_uri=&quot;../../../data&quot;, site_id=&quot;b04&quot;, namespace=&quot;train&quot;)
+
+X_train = catalog_train.load(&quot;train.preprocessed-features&quot;)
+y_train = catalog_train.load(&quot;train.preprocessed-labels&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The following plot presents the energy consumption of the selected dataset as a function of the outdoor temperature:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+ax.scatter(X_train[&quot;temperature&quot;], y_train[&quot;consumption&quot;], s=10, alpha=0.5)
+ax.set_xlabel(&quot;temperature&quot;)
+ax.set_ylabel(&quot;consumption&quot;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_II_8_0.png" src="../../../_images/Activity_Estimation_II_8_0.png" />
+</div>
+</div>
+</section>
+<section id="the-predict-pipeline">
+<h2><span class="section-number">4.3.2. </span>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline<a class="headerlink" href="#the-predict-pipeline" title="Permalink to this headline">#</a></h2>
+<p><strong>When run in the <code class="docutils literal notranslate"><span class="pre">train</span></code> namespace</strong></p>
+<p>Fit a predictive model on the <code class="docutils literal notranslate"><span class="pre">train</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = UsagePredictor().fit(X_train, y_train)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>When run in the <code class="docutils literal notranslate"><span class="pre">test</span></code> namespace</strong></p>
+<p>Load <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>catalog_test = load_catalog(store_uri=&quot;../../../data&quot;, site_id=&quot;b04&quot;, namespace=&quot;test&quot;)
+
+X_test = catalog_test.load(&quot;test.preprocessed-features&quot;)
+y_test = catalog_test.load(&quot;test.preprocessed-labels&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Both the <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> period consumption data are presented in the next plot:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+y_train.plot(ax=ax)
+y_test.plot(ax=ax)
+
+ax.legend([&quot;`train` period&quot;, &quot;`test` period&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_II_17_0.png" src="../../../_images/Activity_Estimation_II_17_0.png" />
+</div>
+</div>
+<p>Evaluate the model on the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>prediction = model.predict(X_test)
+cvrmse(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.8421000874816855</span>
+</pre>
+</div></div>
+</div>
+<p>This is a very high error that is caused by the randomness of the daily energy consumption profiles:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_train_daily = y_train.copy()
+y_train_daily[&quot;date&quot;] = y_train_daily.index.date
+y_train_daily[&quot;time&quot;] = y_train_daily.index.time
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+y_train_daily.pivot(index=&#39;time&#39;, columns=&#39;date&#39;, values=&#39;consumption&#39;) \
+             .plot(ax=ax, alpha=0.05, legend=None, color=&#39;#0570b0&#39;)
+
+ax.xaxis.set_major_locator(ticker.MultipleLocator(3600*2))
+ax.set_xlabel(&#39;Hours&#39;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_II_22_0.png" src="../../../_images/Activity_Estimation_II_22_0.png" />
+</div>
+</div>
+<p>The main difficulty in predicting intermittent energy consumption is that we cannot easily predict <strong>when</strong> it is going to be larger than zero.</p>
+<p>Since this dataset corresponds to residential gas consumption, it contains a significant number of zero values:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+y_train.plot.kde(ax=ax)
+y_test.plot.kde(ax=ax)
+
+ax.legend([&quot;`train` data&quot;, &quot;`test` data&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_II_24_0.png" src="../../../_images/Activity_Estimation_II_24_0.png" />
+</div>
+</div>
+<p>If we move away from the idea of predicting energy consumption and towards the idea of, first, mapping conditions and, then, comparing samples of similar conditions, we can select only the observations with non-zero energy consumption values.</p>
+<p>First, fit a predictive model using only the observations with non-zero energy consumption values for the <code class="docutils literal notranslate"><span class="pre">train</span></code> period:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_train_on = y_train[y_train[&quot;consumption&quot;] &gt; 1e-05]
+X_train_on = X_train.loc[y_train_on.index]
+
+model = UsagePredictor().fit(X_train_on, y_train_on)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, apply the model on only the observations with non-zero energy consumption values for the <code class="docutils literal notranslate"><span class="pre">test</span></code> period:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_test_on = y_test[y_test[&quot;consumption&quot;] &gt; 1e-05]
+X_test_on = X_test.loc[y_test_on.index]
+
+prediction = model.predict(X_test_on)
+cvrmse(y_test_on, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.0874032363103652</span>
+</pre>
+</div></div>
+</div>
+<p>The error is now lower, but still quite high.</p>
+</section>
+<section id="the-predict-pipeline-with-autoencoding">
+<h2><span class="section-number">4.3.3. </span>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline with autoencoding<a class="headerlink" href="#the-predict-pipeline-with-autoencoding" title="Permalink to this headline">#</a></h2>
+<p><strong>When run in the <code class="docutils literal notranslate"><span class="pre">train</span></code> namespace</strong></p>
+<p>Estimate activity levels. This time we will set the argument <code class="docutils literal notranslate"><span class="pre">assume_hurdle</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>. If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it is assumed that the energy consumption data is generated from a hurdle model. A hurdle model is a two-part model that specifies one process for zero values and another process for the positive ones.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for feature in X_train.columns:
+    print(feature)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>temperature
+dew point temperature
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>non_occ_features = [&quot;temperature&quot;, &quot;dew point temperature&quot;]
+
+act_train = estimate_activity(
+    X_train, 
+    y_train, 
+    non_occ_features=non_occ_features, 
+    exog=&quot;temperature&quot;,
+    assume_hurdle=True,
+
+)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The next plot shows the estimated activity levels along with the actual energy consumption for the first day of January during the <code class="docutils literal notranslate"><span class="pre">train</span></code> period:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>month = 1 # January
+n_obs = 24*4
+
+fig = plt.figure(figsize=(12, 3.54), dpi=96)
+layout = (1, 1)
+ax1 = plt.subplot2grid(layout, (0, 0))
+ax2 = ax1.twinx()
+
+y_train[&quot;consumption&quot;].loc[y_train.index.month==month][:n_obs].plot(
+    ax=ax1, color=&quot;#034e7b&quot;, alpha=0.6
+)
+act_train.loc[act_train.index.month==month][:n_obs].plot(
+    ax=ax2, color=&quot;#cc4c02&quot;, alpha=0.6
+)
+
+ax1.set_ylabel(&quot;Energy consumption&quot;, color=&quot;#034e7b&quot;)
+ax2.set_ylabel(&quot;Estimated activity levels&quot;, color=&quot;#cc4c02&quot;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_II_36_0.png" src="../../../_images/Activity_Estimation_II_36_0.png" />
+</div>
+</div>
+<p>Use the estimated activity levels as features and fit a predictive model for energy consumption given the estimated activity and the weather data in the <code class="docutils literal notranslate"><span class="pre">train</span></code> period:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train_act = pd.concat(
+    [
+        X_train,
+        act_train.to_frame(&quot;activity&quot;)
+    ],
+    axis=1
+)
+
+model = UsagePredictor(skip_calendar=True).fit(X_train_act, y_train)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>When run in the <code class="docutils literal notranslate"><span class="pre">test</span></code> namespace</strong></p>
+<p>Estimate activity levels:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>act_test = estimate_activity(
+    X_test, 
+    y_test, 
+    non_occ_features=non_occ_features, 
+    exog=&quot;temperature&quot;,
+    assume_hurdle=True
+)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Apply the predictive model:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_test_act = pd.concat(
+    [
+        X_test,
+        act_test.to_frame(&quot;activity&quot;)
+    ], 
+    axis=1
+)
+
+prediction = model.predict(X_test_act)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The new CV(RMSE) is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cvrmse(y_test, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.7448453092317262</span>
+</pre>
+</div></div>
+</div>
+<p>We got a better result this time. However, we now have something even more important: an estimation for the activity levels.</p>
+<p>We will argue that estimating the impact during the highest activity levels is the most important task, since the corresponding subset is the one we care about when evaluating the impact of an energy retrofit that upgrades the building’s envelope or the efficiency of the heating system. These observations are a small part of the whole dataset, but the most informative one:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+act_train.plot.hist(bins=10, ax=ax, alpha=0.5)
+act_test.plot.hist(bins=10, ax=ax, alpha=0.4)
+
+ax.legend([&quot;`train` data&quot;, &quot;`test` data&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_II_47_0.png" src="../../../_images/Activity_Estimation_II_47_0.png" />
+</div>
+</div>
+<p>Let’s isolate all <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> observations where activity equals one (1):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_train_selected = y_train[act_train == 1]
+X_train_selected = X_train.loc[y_train_selected.index]
+
+y_test_selected = y_test[act_test == 1]
+X_test_selected = X_test.loc[y_test_selected.index]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can plot the two subsets side by side:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 3.54), dpi=96)
+fig.subplots_adjust(wspace=0.04)
+
+ax1.scatter(
+    X_train.loc[~X_train.index.isin(X_train_selected.index), &quot;temperature&quot;], 
+    y_train.loc[~y_train.index.isin(y_train_selected.index), &quot;consumption&quot;], 
+    s=10, 
+    alpha=0.8
+)
+
+ax1.scatter(
+    X_train_selected[&quot;temperature&quot;], 
+    y_train_selected[&quot;consumption&quot;], 
+    s=10, 
+    alpha=0.4,
+    color=&quot;#fe9929&quot;
+)
+
+ax1.set_xlabel(&quot;temperature&quot;)
+ax1.set_ylabel(&quot;consumption&quot;)
+ax1.set_title(&quot;`train` data&quot;)
+
+ax1.legend(
+    handles=[
+        mpatches.Patch(color=&quot;#fe9929&quot;, label=&quot;Selected subset&quot;), 
+    ]
+)
+
+ax2.scatter(
+    X_test.loc[~X_test.index.isin(X_test_selected.index), &quot;temperature&quot;], 
+    y_test.loc[~y_test.index.isin(y_test_selected.index), &quot;consumption&quot;],
+    s=10, 
+    alpha=0.8
+)
+
+ax2.scatter(
+    X_test_selected[&quot;temperature&quot;], 
+    y_test_selected[&quot;consumption&quot;], 
+    s=10, 
+    alpha=0.4,
+    color=&quot;#fe9929&quot;
+)
+
+ax2.set_xlabel(&quot;temperature&quot;)
+ax2.set_title(&quot;`test` data&quot;)
+
+ax2.legend(
+    handles=[
+        mpatches.Patch(color=&quot;#fe9929&quot;, label=&quot;Selected subset&quot;), 
+    ]
+)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_II_51_0.png" src="../../../_images/Activity_Estimation_II_51_0.png" />
+</div>
+</div>
+<p>The plot below shows the distributions of the energy consumption values for the <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> data, and for all observations with the highest activity levels. Since there has been no event that alters the energy consumption between the two periods, the distributions should be similar:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+layout = (1, 1)
+ax = plt.subplot2grid(layout, (0, 0))
+
+y_train.loc[act_train[act_train &gt;0].index].plot.kde(ax=ax)
+y_test.loc[act_test[act_test &gt;0].index].plot.kde(ax=ax)
+
+ax.legend([&quot;`train` period&quot;, &quot;`test` period&quot;], frameon=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/Activity_Estimation_II_53_0.png" src="../../../_images/Activity_Estimation_II_53_0.png" />
+</div>
+</div>
+<p>Fit a predictive model only on the highest activity observations in the <code class="docutils literal notranslate"><span class="pre">train</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train_cond = pd.concat(
+    [
+        X_train.loc[y_train_selected.index],
+        act_train.loc[y_train_selected.index].to_frame(&quot;activity&quot;)
+        
+    ], 
+    axis=1
+)
+
+model = UsagePredictor(skip_calendar=True).fit(X_train_cond, y_train_selected)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, map the corresponding activity observations in the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_test_cond = pd.concat(
+    [
+        X_test.loc[y_test_selected.index],
+        act_test.loc[y_test_selected.index].to_frame(&quot;activity&quot;)
+    ], 
+    axis=1
+)
+
+prediction = model.predict(X_test_cond)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Evaluate the results:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cvrmse(y_test_selected, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2857649421730923</span>
+</pre>
+</div></div>
+</div>
+<p>This is a good enough accuracy to apply M&amp;V. A possible strategy for intermittent demand data - and the one that <code class="docutils literal notranslate"><span class="pre">eensight</span></code> employs - is to estimate the impact of an intervention using the observations with the highest activity levels and, then, interpolate the impact over the remaining observations (assuming zero impact for zero activity).</p>
+<p>Even if we were concerned that the autoencoding method may not be able to avoid overfitting for intermittent demand data, we could use the predicted activity levels to find the most informative subset of the data and, then, fit a predictive model directly to that subset.</p>
+<p>First, fit a predictive model on all <code class="docutils literal notranslate"><span class="pre">train</span></code> observations with the highest activility levels:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = UsagePredictor().fit(X_train_selected, y_train_selected)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, apply the model on all <code class="docutils literal notranslate"><span class="pre">test</span></code> observations with the highest activility levels:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>prediction = model.predict(X_test_selected)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The CV(RMSE) is similar to the autoencoding approach (so no much reason to be concerned for possible overfitting):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cvrmse(y_test_selected, prediction)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2733409295170134</span>
+</pre>
+</div></div>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters\04\03"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../02/Counterfactual_Impact.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">4.2. </span>Counterfactual predictions for impact variables</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../04/Counterfactual_Mapping.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4.4. </span>Counterfactual predictions for mapping variables</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    <div class="extra_footer">
+      <div>
+  <div style="width:49%;Float:left;display:inline;">
+    <div>By Sotiris Papadelis</div>
+    <div>&#169; Copyright 2022-2023</div>
+  </div>
+  <div style="width:49%;Float:right;display:inline;">
+    <img align="left" width="500" src="https://github.com/hebes-io/eensight/raw/master/EC_support.png">
+  </div>
+</div>
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
