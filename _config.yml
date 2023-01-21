@@ -27,7 +27,7 @@ html:
     <div>
       <div style="width:49%;Float:left;display:inline;">
         <div>By Sotiris Papadelis</div>
-        <div>&#169; Copyright 2022-2023</div>
+        <div>&#169; Copyright 2023</div>
       </div>
       <div style="width:49%;Float:right;display:inline;">
         <img align="left" width="500" src="https://github.com/hebes-io/eensight/raw/master/EC_support.png">
@@ -42,4 +42,3 @@ repository:
 sphinx:
   config:
     html_show_copyright: false
-    html_extra_path: ['assets']

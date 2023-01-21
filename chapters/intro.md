@@ -1,8 +1,8 @@
 # Rethinking Measurement and Verification of Energy Savings
 
- by Sotiris Papadelis [HEBES Intelligence](https://www.hebes.io/).
+ by Sotiris Papadelis [HEBES Intelligence](https://www.hebes.io/), 19/01/2023
 
-[![DOI](https://zenodo.org/badge/590164136.svg)](https://zenodo.org/badge/latestdoi/590164136)
+ [![DOI](https://zenodo.org/badge/590164136.svg)](https://zenodo.org/badge/latestdoi/590164136)
 
 This book presents in detail the measurement and verification (M&V) methodology that has been developed by the H2020 project [SENSEI - Smart Energy Services to Improve the Energy Efficiency of the European Building Stock](https://senseih2020.eu/). 
 
