@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="4.3. Estimation of activity levels: Part II" href="../03/Activity_Estimation_II.html" />
+    <link rel="next" title="4.4. Estimation of activity levels: Part II" href="../03/Activity_Estimation_II.html" />
     <link rel="prev" title="4.1. Estimation of activity levels: Part I" href="../01/Activity_Estimation_I.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -194,12 +194,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../03/Activity_Estimation_II.html">
-     4.3. Activity Estimation: Part II
+     4.4. Activity Estimation: Part II
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../04/Counterfactual_Mapping.html">
-     4.4. Counterfactual predictions for mapping variables
+     4.5. Counterfactual predictions for mapping variables
     </a>
    </li>
   </ul>
@@ -378,66 +378,78 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-b02-dataset">
-   4.2.1. The
-   <em>
-    b02
-   </em>
-   dataset
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   4.2. Counterfactual predictions for impact variables
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-b02-dataset">
+     4.2.1. The
+     <em>
+      b02
+     </em>
+     dataset
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-predict-pipeline">
+     4.2.2. The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       predict
+      </span>
+     </code>
+     pipeline
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-predict-pipeline-with-autoencoding">
+     4.2.3. The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       predict
+      </span>
+     </code>
+     pipeline with autoencoding
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-b03-dataset">
+     4.2.4. The
+     <em>
+      b03
+     </em>
+     dataset
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     4.2.5. The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       predict
+      </span>
+     </code>
+     pipeline
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     4.2.6. The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       predict
+      </span>
+     </code>
+     pipeline with autoencoding
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-predict-pipeline">
-   4.2.2. The
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     predict
-    </span>
-   </code>
-   pipeline
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-predict-pipeline-with-autoencoding">
-   4.2.3. The
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     predict
-    </span>
-   </code>
-   pipeline with autoencoding
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-b03-dataset">
-   4.2.4. The
-   <em>
-    b03
-   </em>
-   dataset
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   4.2.5. The
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     predict
-    </span>
-   </code>
-   pipeline
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   4.2.6. The
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     predict
-    </span>
-   </code>
-   pipeline with autoencoding
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parameters">
+   4.3. Parameters
   </a>
  </li>
 </ul>
@@ -459,66 +471,78 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-b02-dataset">
-   4.2.1. The
-   <em>
-    b02
-   </em>
-   dataset
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   4.2. Counterfactual predictions for impact variables
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-b02-dataset">
+     4.2.1. The
+     <em>
+      b02
+     </em>
+     dataset
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-predict-pipeline">
+     4.2.2. The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       predict
+      </span>
+     </code>
+     pipeline
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-predict-pipeline-with-autoencoding">
+     4.2.3. The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       predict
+      </span>
+     </code>
+     pipeline with autoencoding
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-b03-dataset">
+     4.2.4. The
+     <em>
+      b03
+     </em>
+     dataset
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     4.2.5. The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       predict
+      </span>
+     </code>
+     pipeline
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     4.2.6. The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       predict
+      </span>
+     </code>
+     pipeline with autoencoding
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-predict-pipeline">
-   4.2.2. The
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     predict
-    </span>
-   </code>
-   pipeline
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-predict-pipeline-with-autoencoding">
-   4.2.3. The
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     predict
-    </span>
-   </code>
-   pipeline with autoencoding
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-b03-dataset">
-   4.2.4. The
-   <em>
-    b03
-   </em>
-   dataset
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   4.2.5. The
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     predict
-    </span>
-   </code>
-   pipeline
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   4.2.6. The
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     predict
-    </span>
-   </code>
-   pipeline with autoencoding
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parameters">
+   4.3. Parameters
   </a>
  </li>
 </ul>
@@ -533,7 +557,7 @@ title="Print to PDF"
                 
   <section id="counterfactual-predictions-for-impact-variables">
 <h1><span class="section-number">4.2. </span>Counterfactual predictions for impact variables<a class="headerlink" href="#counterfactual-predictions-for-impact-variables" title="Permalink to this headline">#</a></h1>
-<p>This section provides more details on the way counterfactual predictions are carried out by <code class="docutils literal notranslate"><span class="pre">eensight</span></code> for events that affect <strong>impact variables</strong>, such as an energy retrofit. To this end, it outlines the methodology behind the <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline of <code class="docutils literal notranslate"><span class="pre">eensight</span></code>.</p>
+<p>This section provides more details on the way counterfactual predictions are carried out by <code class="docutils literal notranslate"><span class="pre">eensight</span></code> for events that affect <strong>impact variables</strong>, such as an energy retrofit. To this end, it outlines the methodology behind the <code class="docutils literal notranslate"><span class="pre">predict</span></code> and <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> pipelines of <code class="docutils literal notranslate"><span class="pre">eensight</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext autoreload
@@ -551,10 +575,11 @@ import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
+from eensight.config import ConfigLoader
 from eensight.methods.prediction.baseline import UsagePredictor
 from eensight.methods.prediction.activity import estimate_activity
-    
 from eensight.methods.prediction.metrics import cvrmse, nmbe
+from eensight.settings import PROJECT_PATH
 from eensight.utils import get_categorical_cols, load_catalog
 
 plt.style.use(&quot;bmh&quot;)
@@ -581,7 +606,7 @@ y_train = catalog_train.load(&quot;train.preprocessed-labels&quot;)
 <p>The following plot presents the energy consumption of the selected dataset as a function of the outdoor temperature:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -608,6 +633,16 @@ ax.set_ylabel(&quot;consumption&quot;)
 </div>
 </div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline can be called from the command line as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run predict --site-id b02 --store-uri ../../../data --namespace train 
+</pre></div>
+</div>
+<p>Running the pipeline will create the following artifacts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The trained <code class="docutils literal notranslate"><span class="pre">UsagePredictor</span></code> model</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train.prediction</span></code>: A dataframe with the prediction generated by applying the <code class="docutils literal notranslate"><span class="pre">model</span></code> on the <code class="docutils literal notranslate"><span class="pre">train</span></code> data (in-sample prediction)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train.performance</span></code>: A JSON file with the in-sample CV(RMSE) and NMBE.</p></li>
+</ul>
 <p><strong>When run in the <code class="docutils literal notranslate"><span class="pre">test</span></code> namespace</strong></p>
 <p>Load the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
 <div class="cell docutils container">
@@ -623,18 +658,18 @@ y_test = catalog_test.load(&quot;test.preprocessed-labels&quot;)
 <p>Both the <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> period consumption data are presented in the next plot:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
-y_train.plot(ax=ax)
-y_test.plot(ax=ax)
+y_train.plot(ax=ax, alpha=0.6)
+y_test.plot(ax=ax, alpha=0.6)
 ax.legend([&quot;`train` period&quot;, &quot;`test` period&quot;], frameon=True)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_18_0.png" src="../../../_images/Counterfactual_Impact_18_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_19_0.png" src="../../../_images/Counterfactual_Impact_19_0.png" />
 </div>
 </div>
 <p>Apply the model on the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
@@ -703,6 +738,28 @@ cvrmse(y_test, prediction)
 </pre>
 </div></div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline can be called from the command line as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run predict --site-id b02 --store-uri ../../../data --namespace <span class="nb">test</span> 
+</pre></div>
+</div>
+<p>Running the pipeline will create the following artifacts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">test.prediction</span></code>: A dataframe with the prediction generated by applying the <code class="docutils literal notranslate"><span class="pre">model</span></code> on the <code class="docutils literal notranslate"><span class="pre">test</span></code> data (out-of-sample prediction)</p></li>
+</ul>
+<p>To actually get the metrics for the predictive performance of the model, we have to call the <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> pipeline:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run evaluate --site-id b02 --store-uri ../../../data --namespace <span class="nb">test</span> 
+</pre></div>
+</div>
+<p>Running the pipeline will create the following artifacts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">test.performance</span></code>: A JSON file with the out-of-sample CV(RMSE) and NMBE.</p></li>
+</ul>
+<p>Note that:</p>
+<ol class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline must be called first in the <code class="docutils literal notranslate"><span class="pre">train</span></code> namespace and, then, in the <code class="docutils literal notranslate"><span class="pre">test</span></code> one, so that the <code class="docutils literal notranslate"><span class="pre">model</span></code> is available.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline must be called before the <code class="docutils literal notranslate"><span class="pre">evaluate</span></code>, so that the <code class="docutils literal notranslate"><span class="pre">test.prediction</span></code> is available to the latter.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> pipeline supports only the <code class="docutils literal notranslate"><span class="pre">test</span></code> and <code class="docutils literal notranslate"><span class="pre">apply</span></code> namespaces.</p></li>
+</ol>
 <p><strong>When run in the <code class="docutils literal notranslate"><span class="pre">apply</span></code> namespace</strong></p>
 <p>We can use the fitted model to carry out a counterfactual prediction for the <code class="docutils literal notranslate"><span class="pre">apply</span></code> period:</p>
 <div class="cell docutils container">
@@ -718,20 +775,20 @@ y_apply = catalog_apply.load(&quot;apply.preprocessed-labels&quot;)
 <p>The <code class="docutils literal notranslate"><span class="pre">train</span></code>, <code class="docutils literal notranslate"><span class="pre">test</span></code> and <code class="docutils literal notranslate"><span class="pre">apply</span></code> period consumption data are presented in the next plot:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
-y_train.plot(ax=ax)
-y_test.plot(ax=ax)
-y_apply.plot(ax=ax)
+y_train.plot(ax=ax, alpha=0.6)
+y_test.plot(ax=ax, alpha=0.6)
+y_apply.plot(ax=ax, alpha=0.6)
 
 ax.legend([&quot;`train` period&quot;, &quot;`test` period&quot;, &quot;`apply` period&quot;], frameon=True)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_34_0.png" src="../../../_images/Counterfactual_Impact_34_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_36_0.png" src="../../../_images/Counterfactual_Impact_36_0.png" />
 </div>
 </div>
 <p>Evaluate the model on the <code class="docutils literal notranslate"><span class="pre">apply</span></code> data:</p>
@@ -753,7 +810,7 @@ ax.legend([&quot;`train` period&quot;, &quot;`test` period&quot;, &quot;`apply` 
 <p>Typically, the impact (expressed in this case as energy savings) is visualized as a cumulative variable:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -765,10 +822,27 @@ ax.set_ylabel(&#39;Energy savings&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_40_0.png" src="../../../_images/Counterfactual_Impact_40_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_42_0.png" src="../../../_images/Counterfactual_Impact_42_0.png" />
 </div>
 </div>
-<p>In practice, this model can be used for generating counterfactual energy consumption predictions until we observe enough data in the reporting period. When enough data is available, we can run the <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline with the flag <code class="docutils literal notranslate"><span class="pre">--autoencode</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline can be called from the command line as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run predict --site-id b02 --store-uri ../../../data --namespace apply 
+</pre></div>
+</div>
+<p>Running the pipeline will create the following artifacts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">apply.prediction</span></code>: A dataframe with the prediction generated by applying the <code class="docutils literal notranslate"><span class="pre">model</span></code> on the <code class="docutils literal notranslate"><span class="pre">apply</span></code> data (counterfactual prediction)</p></li>
+</ul>
+<p>To actually get the impact estimation, we have to call the <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> pipeline:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run evaluate --site-id b02 --store-uri ../../../data --namespace apply 
+</pre></div>
+</div>
+<p>Running the pipeline will create the following artifacts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">apply.impact</span></code>: A dataframe with the difference between the predicted and the actual energy consumption.</p></li>
+</ul>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline must be called before the <code class="docutils literal notranslate"><span class="pre">evaluate</span></code>, so that the <code class="docutils literal notranslate"><span class="pre">apply.prediction</span></code> is available to the latter.</p>
+<p>In practice, the predicitive model can be used for generating counterfactual energy consumption predictions until we observe enough data in the reporting period. When enough data is available, we can run the <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline with the flag <code class="docutils literal notranslate"><span class="pre">--autoencode</span></code>.</p>
 <p>In this case:</p>
 </section>
 <section id="the-predict-pipeline-with-autoencoding">
@@ -806,7 +880,9 @@ act_train = estimate_activity(
     X_train, 
     y_train, 
     non_occ_features=non_occ_features, 
-    exog=&quot;temperature&quot;
+    exog=&quot;temperature&quot;,
+    n_trials=200,
+    verbose=False,
 )
 </pre></div>
 </div>
@@ -829,6 +905,17 @@ model_autoenc = UsagePredictor(lags=lags, skip_calendar=True).fit(X_train_act, y
 </div>
 </div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline can be called from the command line as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run predict --site-id b02 --store-uri ../../../data --namespace train --autoencode
+</pre></div>
+</div>
+<p>Running the pipeline will create the following artifacts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">train.activity</span></code>: Dataframe with the estimated activity levels for the <code class="docutils literal notranslate"><span class="pre">train</span></code> data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model-autoenc</span></code>: The trained <code class="docutils literal notranslate"><span class="pre">UsagePredictor</span></code> model using activity levels as a feature.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train.prediction-autoenc</span></code>: A dataframe with the prediction generated by applying <code class="docutils literal notranslate"><span class="pre">model-autoenc</span></code> on the <code class="docutils literal notranslate"><span class="pre">train</span></code> data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train.performance-autoenc</span></code>: A JSON file with the CV(RMSE) and NMBE.</p></li>
+</ul>
 <p><strong>When run in the <code class="docutils literal notranslate"><span class="pre">test</span></code> namespace</strong></p>
 <p>Estimate activity levels:</p>
 <div class="cell docutils container">
@@ -837,7 +924,9 @@ model_autoenc = UsagePredictor(lags=lags, skip_calendar=True).fit(X_train_act, y
     X_test, 
     y_test, 
     non_occ_features=non_occ_features, 
-    exog=&quot;temperature&quot;
+    exog=&quot;temperature&quot;,
+    n_trials=200,
+    verbose=False,
 )
 </pre></div>
 </div>
@@ -882,6 +971,24 @@ prediction = model_autoenc.predict(X_test_act)
 </pre>
 </div></div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline can be called from the command line as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run predict --site-id b02 --store-uri ../../../data --namespace <span class="nb">test</span> --autoencode
+</pre></div>
+</div>
+<p>Running the pipeline will create the following artifacts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">test.activity</span></code>: Dataframe with the estimated activity levels for the <code class="docutils literal notranslate"><span class="pre">test</span></code> data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test.prediction-autoenc</span></code>: A dataframe with the prediction generated by applying <code class="docutils literal notranslate"><span class="pre">model-autoenc</span></code> on the <code class="docutils literal notranslate"><span class="pre">test</span></code> data</p></li>
+</ul>
+<p>To actually get the metrics for the predictive performance of the model, we have to call the <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> pipeline:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run evaluate --site-id b02 --store-uri ../../../data --namespace <span class="nb">test</span> --autoencode
+</pre></div>
+</div>
+<p>Running the pipeline will create the following artifacts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">test.performance-autoenc</span></code>: A JSON file with the CV(RMSE) and NMBE values.</p></li>
+</ul>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline must be called before the <code class="docutils literal notranslate"><span class="pre">evaluate</span></code>, so that the <code class="docutils literal notranslate"><span class="pre">test.prediction-autoenc</span></code> is available to the latter.</p>
 <p><strong>When run in the <code class="docutils literal notranslate"><span class="pre">apply</span></code> namespace</strong></p>
 <p>Estimate activity levels:</p>
 <div class="cell docutils container">
@@ -890,7 +997,9 @@ prediction = model_autoenc.predict(X_test_act)
     X_apply, 
     y_apply, 
     non_occ_features=non_occ_features, 
-    exog=&quot;temperature&quot;
+    exog=&quot;temperature&quot;,
+    n_trials=200,
+    verbose=False,
 )
 </pre></div>
 </div>
@@ -919,10 +1028,28 @@ prediction = model_autoenc.predict(X_counter)
 </div>
 </div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline can be called from the command line as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run predict --site-id b02 --store-uri ../../../data --namespace apply --autoencode
+</pre></div>
+</div>
+<p>Running the pipeline will create the following artifacts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">apply.activity</span></code>: Dataframe with the estimated activity levels for the <code class="docutils literal notranslate"><span class="pre">apply</span></code> data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">apply.prediction-autoenc</span></code>: A dataframe with the prediction generated by applying <code class="docutils literal notranslate"><span class="pre">model-autoenc</span></code> on the <code class="docutils literal notranslate"><span class="pre">apply</span></code> data.</p></li>
+</ul>
+<p>To actually get the impact estimation, we have to call the <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> pipeline:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run evaluate --site-id b02 --store-uri ../../../data --namespace apply --autoencode
+</pre></div>
+</div>
+<p>Running the pipeline will create the following artifacts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">apply.impact-autoenc</span></code>: A dataframe with the difference between the predicted and the actual energy consumption.</p></li>
+</ul>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline must be called before the <code class="docutils literal notranslate"><span class="pre">evaluate</span></code>, so that the <code class="docutils literal notranslate"><span class="pre">apply.prediction-autoenc</span></code> is available to the latter.</p>
 <p>We can compare the estimated impact from the two approaches:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -936,7 +1063,7 @@ ax.legend([&quot;Impact estimation&quot;, &quot;Updated impact estimation&quot;]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_64_0.png" src="../../../_images/Counterfactual_Impact_64_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_70_0.png" src="../../../_images/Counterfactual_Impact_70_0.png" />
 </div>
 </div>
 <p><em>What drives the difference between the two impact estimations and which one should we trust more?</em></p>
@@ -963,7 +1090,7 @@ y_apply_selected = y_apply[
 <p>We can plot the two subsets side by side:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 4))
 fig.subplots_adjust(wspace=0.04)
 
 ax1.scatter(
@@ -1018,13 +1145,13 @@ ax2.legend(
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_68_0.png" src="../../../_images/Counterfactual_Impact_68_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_74_0.png" src="../../../_images/Counterfactual_Impact_74_0.png" />
 </div>
 </div>
 <p>First, we will plot the distribution of the <strong>actual</strong> energy consumption for the selected <code class="docutils literal notranslate"><span class="pre">train</span></code> and the <code class="docutils literal notranslate"><span class="pre">apply</span></code> observations:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1049,7 +1176,7 @@ ax.legend([&quot;`train` data&quot;, &quot;`apply` data&quot;], frameon=True)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_70_0.png" src="../../../_images/Counterfactual_Impact_70_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_76_0.png" src="../../../_images/Counterfactual_Impact_76_0.png" />
 </div>
 </div>
 <p>This is pretty much how a counterfactual prediction should work: find similar conditions between the pre- and post-event data (here, similar temperature and activity levels), and compare the difference in the energy consumption.</p>
@@ -1065,7 +1192,7 @@ prediction = model.predict(X_apply_selected)
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1090,7 +1217,7 @@ ax.legend([&quot;Counterfractual prediction&quot;, &quot;`apply` data&quot;], fr
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_74_0.png" src="../../../_images/Counterfactual_Impact_74_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_80_0.png" src="../../../_images/Counterfactual_Impact_80_0.png" />
 </div>
 </div>
 <p>Finally, we will estimate the energy consumption using the autoencoding model and compare the predicted with the actual consumption:</p>
@@ -1111,7 +1238,7 @@ prediction = model_autoenc.predict(X_counter)
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1136,7 +1263,7 @@ ax.legend([&quot;Counterfractual prediction&quot;, &quot;`apply` data&quot;], fr
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_77_0.png" src="../../../_images/Counterfactual_Impact_77_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_83_0.png" src="../../../_images/Counterfactual_Impact_83_0.png" />
 </div>
 </div>
 <p>As we can see from the plots, the autoencoding approach provides a generally better representation of the actual impact.</p>
@@ -1158,7 +1285,7 @@ y_train = catalog_train.load(&quot;train.preprocessed-labels&quot;)
 <p>The following plot presents the energy consumption of the selected dataset as a function of the outdoor temperature:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1169,7 +1296,7 @@ ax.set_ylabel(&quot;consumption&quot;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_83_0.png" src="../../../_images/Counterfactual_Impact_83_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_89_0.png" src="../../../_images/Counterfactual_Impact_89_0.png" />
 </div>
 </div>
 </section>
@@ -1210,18 +1337,18 @@ y_apply = catalog_apply.load(&quot;apply.preprocessed-labels&quot;)
 <p>Both the <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">apply</span></code> period consumption data are presented in the next plot:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
-y_train.plot(ax=ax)
-y_apply.plot(ax=ax)
+y_train.plot(ax=ax, alpha=0.6)
+y_apply.plot(ax=ax, alpha=0.6)
 ax.legend([&quot;`train` period&quot;, &quot;`apply` period&quot;], frameon=True)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_93_0.png" src="../../../_images/Counterfactual_Impact_93_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_99_0.png" src="../../../_images/Counterfactual_Impact_99_0.png" />
 </div>
 </div>
 <p>Evaluate the model on the <code class="docutils literal notranslate"><span class="pre">apply</span></code> data:</p>
@@ -1248,7 +1375,7 @@ y_apply_daily[&quot;time&quot;] = y_apply_daily.index.time
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1273,7 +1400,7 @@ ax.legend(
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_98_0.png" src="../../../_images/Counterfactual_Impact_98_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_104_0.png" src="../../../_images/Counterfactual_Impact_104_0.png" />
 </div>
 </div>
 <p>The plot suggests a significant misalignment in the occupancy patterns between the <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">apply</span></code> data during the hour intervals of 06:00-08:00 and 14:00-16:00. Let’s see if we are able to capture it:</p>
@@ -1290,7 +1417,7 @@ change_daily[&quot;time&quot;] = change_daily.index.time
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1308,7 +1435,7 @@ ax.set_ylabel(&#39;Median error between actual \nand predicted consumption&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_101_0.png" src="../../../_images/Counterfactual_Impact_101_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_107_0.png" src="../../../_images/Counterfactual_Impact_107_0.png" />
 </div>
 </div>
 </section>
@@ -1336,7 +1463,9 @@ temperature
     X_train, 
     y_train, 
     non_occ_features=&quot;temperature&quot;, 
-    exog=&quot;temperature&quot;
+    exog=&quot;temperature&quot;,
+    n_trials=200,
+    verbose=False,
 )
 </pre></div>
 </div>
@@ -1367,7 +1496,9 @@ model = UsagePredictor(skip_calendar=True).fit(X_train_act, y_train)
     X_apply, 
     y_apply, 
     non_occ_features=&quot;temperature&quot;, 
-    exog=&quot;temperature&quot;
+    exog=&quot;temperature&quot;,
+    n_trials=200,
+    verbose=False,
 )
 </pre></div>
 </div>
@@ -1404,7 +1535,7 @@ change_daily_auto[&quot;time&quot;] = change_daily_auto.index.time
 <p>The next plot shows the two impact estimations together:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1434,7 +1565,7 @@ ax.set_ylabel(&#39;Average change in consumption&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_117_0.png" src="../../../_images/Counterfactual_Impact_117_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_123_0.png" src="../../../_images/Counterfactual_Impact_123_0.png" />
 </div>
 </div>
 <p>To understand the difference between the two (2) impact estimations, we can see how the estimated activity levels in <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">apply</span></code> periods differ from each other:</p>
@@ -1453,7 +1584,7 @@ act_apply_daily[&quot;time&quot;] = act_apply_daily.index.time
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1483,7 +1614,7 @@ ax.set_ylabel(&#39;Average change in activity&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_120_0.png" src="../../../_images/Counterfactual_Impact_120_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_126_0.png" src="../../../_images/Counterfactual_Impact_126_0.png" />
 </div>
 </div>
 <p>The autoencoding approach gives much less weight to changes in energy consumption that can be accounted for by changes in activity levels. For instance:</p>
@@ -1497,7 +1628,7 @@ ax.set_ylabel(&#39;Average change in activity&#39;)
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>month = 1 # January
 n_obs = 14*24*4
 
-fig = plt.figure(figsize=(12, 3.54), dpi=96)
+fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax1 = plt.subplot2grid(layout, (0, 0))
 ax2 = ax1.twinx()
@@ -1515,11 +1646,51 @@ ax1.set_xlabel(&quot;&quot;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Counterfactual_Impact_123_0.png" src="../../../_images/Counterfactual_Impact_123_0.png" />
+<img alt="../../../_images/Counterfactual_Impact_129_0.png" src="../../../_images/Counterfactual_Impact_129_0.png" />
 </div>
+</div>
+</section>
+</section>
+<section id="parameters">
+<h1><span class="section-number">4.3. </span>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">#</a></h1>
+<p>The relevant parameters - as they can be found in the <code class="docutils literal notranslate"><span class="pre">eensight/conf/base/parameters/predict.yml</span></code> file - are:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>params = ConfigLoader(PROJECT_PATH / &quot;conf&quot;).get(&quot;parameters*&quot;, &quot;parameters*/**&quot;, &quot;**/parameters*&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>params = {
+    &quot;fit&quot;: params[&quot;fit&quot;],
+    &quot;activity&quot;: params[&quot;activity&quot;]
+}
+
+for name in (&quot;assume_hurdle&quot;, &quot;n_trials_adjust&quot;, &quot;upper_bound&quot;):
+    params[&quot;activity&quot;].pop(name)
+    
+params
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+<span style="font-weight: bold">{</span>
+    <span style="color: #008000; text-decoration-color: #008000">'fit'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'lags'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'temperature'</span>: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">24</span><span style="font-weight: bold">]}</span>, <span style="color: #008000; text-decoration-color: #008000">'cat_features'</span>: <span style="color: #008000; text-decoration-color: #008000">'holiday'</span>, <span style="color: #008000; text-decoration-color: #008000">'validation_size'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2</span><span style="font-weight: bold">}</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'activity'</span>: <span style="font-weight: bold">{</span>
+        <span style="color: #008000; text-decoration-color: #008000">'non_occ_features'</span>: <span style="color: #008000; text-decoration-color: #008000">'temperature'</span>,
+        <span style="color: #008000; text-decoration-color: #008000">'cat_features'</span>: <span style="color: #008000; text-decoration-color: #008000">'holiday'</span>,
+        <span style="color: #008000; text-decoration-color: #008000">'exog'</span>: <span style="color: #008000; text-decoration-color: #008000">'temperature'</span>,
+        <span style="color: #008000; text-decoration-color: #008000">'n_trials'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">200</span>,
+        <span style="color: #008000; text-decoration-color: #008000">'verbose'</span>: <span style="color: #00ff00; text-decoration-color: #00ff00; font-style: italic">True</span>
+    <span style="font-weight: bold">}</span>
+<span style="font-weight: bold">}</span>
+</pre>
+</div></div>
 </div>
 <hr class="docutils" />
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1559,7 +1730,7 @@ ax1.set_xlabel(&quot;&quot;)
     <a class='right-next' id="next-link" href="../03/Activity_Estimation_II.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4.3. </span>Estimation of activity levels: Part II</p>
+        <p class="prev-next-title"><span class="section-number">4.4. </span>Estimation of activity levels: Part II</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -1574,7 +1745,7 @@ ax1.set_xlabel(&quot;&quot;)
       <div>
   <div style="width:49%;Float:left;display:inline;">
     <div>By Sotiris Papadelis</div>
-    <div>&#169; Copyright 2022-2023</div>
+    <div>&#169; Copyright 2023</div>
   </div>
   <div style="width:49%;Float:right;display:inline;">
     <img align="left" width="500" src="https://github.com/hebes-io/eensight/raw/master/EC_support.png">

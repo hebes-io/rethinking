@@ -1,6 +1,6 @@
 # Rethinking Measurement and Verification of Energy Savings
 
- by Sotiris Papadelis [HEBES Intelligence](https://www.hebes.io/).
+ by Sotiris Papadelis [HEBES Intelligence](https://www.hebes.io/), 19/01/2023
 
  [![DOI](https://zenodo.org/badge/590164136.svg)](https://zenodo.org/badge/latestdoi/590164136)
 

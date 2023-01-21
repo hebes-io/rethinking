@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>4.3. Estimation of activity levels: Part II &#8212; Rethinking Measurement and Verification of Energy Savings</title>
+    <title>4.4. Estimation of activity levels: Part II &#8212; Rethinking Measurement and Verification of Energy Savings</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="4.4. Counterfactual predictions for mapping variables" href="../04/Counterfactual_Mapping.html" />
+    <link rel="next" title="4.5. Counterfactual predictions for mapping variables" href="../04/Counterfactual_Mapping.html" />
     <link rel="prev" title="4.2. Counterfactual predictions for impact variables" href="../02/Counterfactual_Impact.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -192,12 +192,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     4.3. Activity Estimation: Part II
+     4.4. Activity Estimation: Part II
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../04/Counterfactual_Mapping.html">
-     4.4. Counterfactual predictions for mapping variables
+     4.5. Counterfactual predictions for mapping variables
     </a>
    </li>
   </ul>
@@ -378,7 +378,7 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-b04-dataset">
-   4.3.1. The
+   4.4.1. The
    <em>
     b04
    </em>
@@ -387,7 +387,7 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-predict-pipeline">
-   4.3.2. The
+   4.4.2. The
    <code class="docutils literal notranslate">
     <span class="pre">
      predict
@@ -398,7 +398,7 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-predict-pipeline-with-autoencoding">
-   4.3.3. The
+   4.4.3. The
    <code class="docutils literal notranslate">
     <span class="pre">
      predict
@@ -428,7 +428,7 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-b04-dataset">
-   4.3.1. The
+   4.4.1. The
    <em>
     b04
    </em>
@@ -437,7 +437,7 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-predict-pipeline">
-   4.3.2. The
+   4.4.2. The
    <code class="docutils literal notranslate">
     <span class="pre">
      predict
@@ -448,7 +448,7 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-predict-pipeline-with-autoencoding">
-   4.3.3. The
+   4.4.3. The
    <code class="docutils literal notranslate">
     <span class="pre">
      predict
@@ -468,7 +468,7 @@ title="Print to PDF"
               <div>
                 
   <section id="estimation-of-activity-levels-part-ii">
-<h1><span class="section-number">4.3. </span>Estimation of activity levels: Part II<a class="headerlink" href="#estimation-of-activity-levels-part-ii" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">4.4. </span>Estimation of activity levels: Part II<a class="headerlink" href="#estimation-of-activity-levels-part-ii" title="Permalink to this headline">#</a></h1>
 <p>This section explains how <code class="docutils literal notranslate"><span class="pre">activity</span></code> is estimated for intermittent (lumpy, volatile, and/or unpredictable) energy consumption.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -499,7 +499,7 @@ plt.style.use(&quot;bmh&quot;)
 </div>
 </div>
 <section id="the-b04-dataset">
-<h2><span class="section-number">4.3.1. </span>The <em>b04</em> dataset<a class="headerlink" href="#the-b04-dataset" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.4.1. </span>The <em>b04</em> dataset<a class="headerlink" href="#the-b04-dataset" title="Permalink to this headline">#</a></h2>
 <p>The <em>b04</em> data corresponds to the whole building gas meter consumption from the <a class="reference external" href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/FIE0S4">AMPds2 Dataset</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -514,7 +514,7 @@ y_train = catalog_train.load(&quot;train.preprocessed-labels&quot;)
 <p>The following plot presents the energy consumption of the selected dataset as a function of the outdoor temperature:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -530,7 +530,7 @@ ax.set_ylabel(&quot;consumption&quot;)
 </div>
 </section>
 <section id="the-predict-pipeline">
-<h2><span class="section-number">4.3.2. </span>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline<a class="headerlink" href="#the-predict-pipeline" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.4.2. </span>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline<a class="headerlink" href="#the-predict-pipeline" title="Permalink to this headline">#</a></h2>
 <p><strong>When run in the <code class="docutils literal notranslate"><span class="pre">train</span></code> namespace</strong></p>
 <p>Fit a predictive model on the <code class="docutils literal notranslate"><span class="pre">train</span></code> data:</p>
 <div class="cell docutils container">
@@ -555,12 +555,12 @@ y_test = catalog_test.load(&quot;test.preprocessed-labels&quot;)
 <p>Both the <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> period consumption data are presented in the next plot:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
-y_train.plot(ax=ax)
-y_test.plot(ax=ax)
+y_train.plot(ax=ax, alpha=0.6)
+y_test.plot(ax=ax, alpha=0.6)
 
 ax.legend([&quot;`train` period&quot;, &quot;`test` period&quot;], frameon=True)
 </pre></div>
@@ -595,7 +595,7 @@ y_train_daily[&quot;time&quot;] = y_train_daily.index.time
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -615,7 +615,7 @@ ax.set_xlabel(&#39;Hours&#39;)
 <p>Since this dataset corresponds to residential gas consumption, it contains a significant number of zero values:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -661,7 +661,7 @@ cvrmse(y_test_on, prediction)
 <p>The error is now lower, but still quite high.</p>
 </section>
 <section id="the-predict-pipeline-with-autoencoding">
-<h2><span class="section-number">4.3.3. </span>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline with autoencoding<a class="headerlink" href="#the-predict-pipeline-with-autoencoding" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.4.3. </span>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline with autoencoding<a class="headerlink" href="#the-predict-pipeline-with-autoencoding" title="Permalink to this headline">#</a></h2>
 <p><strong>When run in the <code class="docutils literal notranslate"><span class="pre">train</span></code> namespace</strong></p>
 <p>Estimate activity levels. This time we will set the argument <code class="docutils literal notranslate"><span class="pre">assume_hurdle</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>. If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it is assumed that the energy consumption data is generated from a hurdle model. A hurdle model is a two-part model that specifies one process for zero values and another process for the positive ones.</p>
 <div class="cell docutils container">
@@ -700,7 +700,7 @@ act_train = estimate_activity(
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>month = 1 # January
 n_obs = 24*4
 
-fig = plt.figure(figsize=(12, 3.54), dpi=96)
+fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax1 = plt.subplot2grid(layout, (0, 0))
 ax2 = ax1.twinx()
@@ -784,7 +784,7 @@ prediction = model.predict(X_test_act)
 <p>We will argue that estimating the impact during the highest activity levels is the most important task, since the corresponding subset is the one we care about when evaluating the impact of an energy retrofit that upgrades the building’s envelope or the efficiency of the heating system. These observations are a small part of the whole dataset, but the most informative one:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -814,7 +814,7 @@ X_test_selected = X_test.loc[y_test_selected.index]
 <p>We can plot the two subsets side by side:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 4.5))
 fig.subplots_adjust(wspace=0.04)
 
 ax1.scatter(
@@ -875,7 +875,7 @@ ax2.legend(
 <p>The plot below shows the distributions of the energy consumption values for the <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> data, and for all observations with the highest activity levels. Since there has been no event that alters the energy consumption between the two periods, the distributions should be similar:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -965,6 +965,35 @@ prediction = model.predict(X_test_cond)
 </pre>
 </div></div>
 </div>
+<p>This is exactly what is done when the <code class="docutils literal notranslate"><span class="pre">predict</span></code> and <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> pipelines are called while setting the <code class="docutils literal notranslate"><span class="pre">activity.assume_hardle</span></code> parameter to true. In particular:</p>
+<ul class="simple">
+<li><p>When the <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline is called from the command line as:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run predict --site-id b04 --store-uri ../../../data --namespace train --autoencode --param activity.assume_hurdle<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+<p>the <code class="docutils literal notranslate"><span class="pre">UsagePredictor</span></code> model is trained only on the subset where <code class="docutils literal notranslate"><span class="pre">activity</span> <span class="pre">=</span> <span class="pre">1</span></code>.</p>
+<ul class="simple">
+<li><p>When the <code class="docutils literal notranslate"><span class="pre">predict</span></code> pipeline is called from the command line as:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run predict --site-id b04 --store-uri ../../../data --namespace <span class="nb">test</span> --autoencode --param activity.assume_hurdle<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+<p>the generated prediction does not use the <code class="docutils literal notranslate"><span class="pre">activity</span></code> feature at all (it has already be used to select the training subset)</p>
+<ul class="simple">
+<li><p>When the <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> pipeline is called from the command line as:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run evaluate --site-id b04 --store-uri ../../../data --namespace <span class="nb">test</span> --autoencode --param activity.assume_hurdle<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+<p>the performance of the <code class="docutils literal notranslate"><span class="pre">model-autoenc</span></code> is evaluated only on the <code class="docutils literal notranslate"><span class="pre">test</span></code> subset with <code class="docutils literal notranslate"><span class="pre">activity</span> <span class="pre">=</span> <span class="pre">1</span></code>.</p>
+<ul class="simple">
+<li><p>When the <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> pipeline is called from the command line as:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run evaluate --site-id b04 --store-uri ../../../data --namespace apply --autoencode --param activity.assume_hurdle<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+<p>the estimated impact is multiplied by the activity levels: zero (0) activity levels mean zero impact, activity levels of one (1) mean that the impact estimation remains intact, and in all other cases, impact is scaled down proportionally to the activity.</p>
 <hr class="docutils" />
 </section>
 </section>
@@ -1006,7 +1035,7 @@ prediction = model.predict(X_test_cond)
     <a class='right-next' id="next-link" href="../04/Counterfactual_Mapping.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4.4. </span>Counterfactual predictions for mapping variables</p>
+        <p class="prev-next-title"><span class="section-number">4.5. </span>Counterfactual predictions for mapping variables</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -1021,7 +1050,7 @@ prediction = model.predict(X_test_cond)
       <div>
   <div style="width:49%;Float:left;display:inline;">
     <div>By Sotiris Papadelis</div>
-    <div>&#169; Copyright 2022-2023</div>
+    <div>&#169; Copyright 2023</div>
   </div>
   <div style="width:49%;Float:right;display:inline;">
     <img align="left" width="500" src="https://github.com/hebes-io/eensight/raw/master/EC_support.png">

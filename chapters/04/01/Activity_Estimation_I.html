@@ -194,12 +194,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../03/Activity_Estimation_II.html">
-     4.3. Activity Estimation: Part II
+     4.4. Activity Estimation: Part II
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../04/Counterfactual_Mapping.html">
-     4.4. Counterfactual predictions for mapping variables
+     4.5. Counterfactual predictions for mapping variables
     </a>
    </li>
   </ul>
@@ -477,7 +477,7 @@ title="Print to PDF"
                 
   <section id="estimation-of-activity-levels-part-i">
 <h1><span class="section-number">4.1. </span>Estimation of activity levels: Part I<a class="headerlink" href="#estimation-of-activity-levels-part-i" title="Permalink to this headline">#</a></h1>
-<p>This section explains how activity levels are estimated and how they are subsequently used.</p>
+<p>This section explains how activity levels are estimated by <code class="docutils literal notranslate"><span class="pre">eensight</span></code> and how they are subsequently used.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext autoreload
@@ -564,7 +564,7 @@ y_train = catalog_train.load(&quot;train.preprocessed-labels&quot;)
 <p>The following plot presents the energy consumption of the selected dataset as a function of the outdoor air (dry bulb) temperature:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -575,7 +575,7 @@ ax.set_ylabel(&quot;consumption&quot;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_11_0.png" src="../../../_images/Activity_Estimation_I_11_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_10_0.png" src="../../../_images/Activity_Estimation_I_10_0.png" />
 </div>
 </div>
 </section>
@@ -637,18 +637,18 @@ y_test = catalog_test.load(&quot;test.preprocessed-labels&quot;)
 <p>Both the <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> period consumption data are presented in the next plot:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
-y_train.plot(ax=ax)
-y_test.plot(ax=ax)
+y_train.plot(ax=ax, alpha=0.6)
+y_test.plot(ax=ax, alpha=0.6)
 ax.legend([&quot;`train` period&quot;, &quot;`test` period&quot;], frameon=True)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_22_0.png" src="../../../_images/Activity_Estimation_I_22_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_21_0.png" src="../../../_images/Activity_Estimation_I_21_0.png" />
 </div>
 </div>
 <p>Add calendar features to the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
@@ -785,7 +785,7 @@ summary[&quot;NMBE&quot;][&quot;Predictive model w/ calendar features only&quot;
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>month = 1 # January
 
-fig = plt.figure(figsize=(12, 3.54), dpi=96)
+fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax1 = plt.subplot2grid(layout, (0, 0))
 ax2 = ax1.twinx()
@@ -799,7 +799,7 @@ ax2.set_ylabel(&quot;Estimated activity&quot;, color=&quot;#cc4c02&quot;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_46_0.png" src="../../../_images/Activity_Estimation_I_46_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_45_0.png" src="../../../_images/Activity_Estimation_I_45_0.png" />
 </div>
 </div>
 <p>Two (2) questions arise at this point:</p>
@@ -811,7 +811,8 @@ ax2.set_ylabel(&quot;Estimated activity&quot;, color=&quot;#cc4c02&quot;)
 <p>In <code class="docutils literal notranslate"><span class="pre">eensight</span></code>, by convention, there should be no difference between <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> data. If an event that alters the characteristics of the energy consumption (such as an energy retrofit) has taken place, the post-event data should be in the <code class="docutils literal notranslate"><span class="pre">apply</span></code> namespace.</p>
 <p>As a result, we can exploit the fact that for similar activity levels and similar values of the occupancy-independent variables, energy consumption in <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> data should be similar. In this way, we can “predict” the energy consumption for the <code class="docutils literal notranslate"><span class="pre">test</span></code> data using the average energy consumption for the same activity and temperature levels in the <code class="docutils literal notranslate"><span class="pre">train</span></code> data.</p>
 <p>Even more importantly, we can estimate the impact of an event by comparing the average energy consumption of the <code class="docutils literal notranslate"><span class="pre">apply</span></code> data to the average energy consumption for the <code class="docutils literal notranslate"><span class="pre">train</span></code> data with the same activity and temperature levels.</p>
-<p>As an example, let’s isolate all <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> observations where temperature is lower than 20<span class="math notranslate nohighlight">\(^{\circ}C\)</span> and activity levels equal to one (1). First, estimate activity for the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
+<p>As an example, let’s isolate all <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> observations where temperature is lower than 20<span class="math notranslate nohighlight">\(^{\circ}C\)</span> and activity levels equal to one (1).</p>
+<p>First, estimate activity for the <code class="docutils literal notranslate"><span class="pre">test</span></code> data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>act_test = estimate_activity_markov(X_test, y_test, exog=&quot;temperature&quot;)
@@ -842,7 +843,7 @@ y_test_selected = y_test[
 <p>We can plot the two subsets side by side:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 4.5))
 fig.subplots_adjust(wspace=0.04)
 
 ax1.scatter(
@@ -897,13 +898,13 @@ ax2.legend(
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_54_0.png" src="../../../_images/Activity_Estimation_I_54_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_53_0.png" src="../../../_images/Activity_Estimation_I_53_0.png" />
 </div>
 </div>
 <p>Since there has been no event that alters the energy consumption between the two periods, the distributions should be similar, and knowing the energy consumption of the <code class="docutils literal notranslate"><span class="pre">train</span></code> period should tell us something about the energy consumption during the <code class="docutils literal notranslate"><span class="pre">test</span></code> period:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -915,7 +916,7 @@ ax.legend([&quot;`train` period&quot;, &quot;`test` period&quot;], frameon=True)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_56_0.png" src="../../../_images/Activity_Estimation_I_56_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_55_0.png" src="../../../_images/Activity_Estimation_I_55_0.png" />
 </div>
 </div>
 <p>This is pretty much how a counterfactual prediction should work: find similar conditions between the two datasets (here, similar temperature and activity levels), and compare their energy consumption. To make this approach operational, we can split the <code class="docutils literal notranslate"><span class="pre">train</span></code> temperature into five (5) bins and calculate the average energy consumption per bin and activity level:</p>
@@ -1029,7 +1030,7 @@ prediction = (
 <p>The actual and the predicted energy consumption are presented in the next plot:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1043,7 +1044,7 @@ ax.legend([&quot;Actual energy consumption&quot;, &quot;Predicted energy consump
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_62_0.png" src="../../../_images/Activity_Estimation_I_62_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_61_0.png" src="../../../_images/Activity_Estimation_I_61_0.png" />
 </div>
 </div>
 <p>The CV(RMSE) is:</p>
@@ -1116,7 +1117,7 @@ prediction = pd.Series(
 <p>The actual and the predicted energy consumption are presented in the next plot:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1130,7 +1131,7 @@ ax.legend([&quot;Actual energy consumption&quot;, &quot;Predicted energy consump
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_73_0.png" src="../../../_images/Activity_Estimation_I_73_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_72_0.png" src="../../../_images/Activity_Estimation_I_72_0.png" />
 </div>
 </div>
 <p>The CV(RMSE) is now:</p>
@@ -1288,7 +1289,7 @@ non_occ_features = [
 
 plot_data = plot_data.sort_values(by=&quot;temperature&quot;)
 
-fig = plt.figure(figsize=(12, 3.54), dpi=96)
+fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1297,7 +1298,7 @@ plot_data.plot.scatter(&quot;temperature&quot;, &quot;consumption&quot;, c=&quot
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_92_0.png" src="../../../_images/Activity_Estimation_I_92_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_91_0.png" src="../../../_images/Activity_Estimation_I_91_0.png" />
 </div>
 </div>
 <p>Note that the <code class="docutils literal notranslate"><span class="pre">extract_activity</span></code> function <strong>significantly overfits</strong> the data. In other words, it assumes that the <code class="docutils literal notranslate"><span class="pre">activity</span></code> feature explains <strong>all</strong> the variation of the energy consumption that cannot be explained by the occupancy-independent features.</p>
@@ -1396,7 +1397,7 @@ summary[&quot;NMBE&quot;][&quot;Autoencoding model w/ overfitting activity&quot;
 c1_values = [5, 10, 20, 30, 50, 100]
 c2 = 0.5
 
-fig = plt.figure(figsize=(12, 3), dpi=96)
+fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1412,7 +1413,7 @@ ax.legend(labels, frameon=True)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_105_0.png" src="../../../_images/Activity_Estimation_I_105_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_104_0.png" src="../../../_images/Activity_Estimation_I_104_0.png" />
 </div>
 </div>
 <p>To understand better how we could optimally parameterize the sigmoid transformation, we can use the transformed activity levels as features, fit a predictive model for energy consumption given the transformed activity and weather data in the <code class="docutils literal notranslate"><span class="pre">train</span></code> period, and evaluate it using the transformed activity and the weather data of the <code class="docutils literal notranslate"><span class="pre">test</span></code> period.</p>
@@ -1468,7 +1469,7 @@ for c1 in c1_values:
 <p>The next plot shows what we should have been expecting: the larger the correction, the higher the CV(RMSE).</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1480,7 +1481,7 @@ ax.set_ylabel(&quot;CV(RMSE) (%)&quot;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_109_0.png" src="../../../_images/Activity_Estimation_I_109_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_108_0.png" src="../../../_images/Activity_Estimation_I_108_0.png" />
 </div>
 </div>
 <p>But, how do we know which parameters to choose for the sigmoid transformation? In other words,</p>
@@ -1505,7 +1506,7 @@ y_train_dn.loc[y_train[y_train[&quot;consumption&quot;] &lt;= 1e-05].index] = 0
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>month = 1 # January
 
-fig = plt.figure(figsize=(12, 3), dpi=96)
+fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1521,7 +1522,7 @@ ax.legend([&quot;Energy consumption&quot;, &quot;Denoised energy consumption&quo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_113_0.png" src="../../../_images/Activity_Estimation_I_113_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_112_0.png" src="../../../_images/Activity_Estimation_I_112_0.png" />
 </div>
 </div>
 <p>Next, we will calculate our overfitting proxy for different values of the <code class="docutils literal notranslate"><span class="pre">c1</span></code> parameter (keeping <code class="docutils literal notranslate"><span class="pre">c2</span></code> constant):</p>
@@ -1562,7 +1563,7 @@ results = pd.Series(results, index=c1_values)
 <p>The evolution of the overfitting proxy is presented below:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1574,7 +1575,7 @@ ax.set_ylabel(&quot;Difference in CV(RMSE) (%)&quot;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_117_0.png" src="../../../_images/Activity_Estimation_I_117_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_116_0.png" src="../../../_images/Activity_Estimation_I_116_0.png" />
 </div>
 </div>
 <p>In order to find a compromise between reducing the difference in the CV(RMSE) values and the degree of correction (value of <code class="docutils literal notranslate"><span class="pre">c1</span></code>), we seek the maximum of the following vector:</p>
@@ -1588,7 +1589,7 @@ ax.set_ylabel(&quot;Difference in CV(RMSE) (%)&quot;)
 <p>The first term of the formula above rewards reductions in the overfitting proxy compared to its initial value, and the second term penalizes for the value of the <code class="docutils literal notranslate"><span class="pre">c1</span></code> parameter. The evolution of both the overfitting proxy and the optimization objective are presented below:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax1 = plt.subplot2grid(layout, (0, 0))
 ax2 = ax1.twinx()
@@ -1603,7 +1604,7 @@ ax2.set_ylabel(&quot;Optimization objective&quot;, color=&quot;#cc4c02&quot;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_121_0.png" src="../../../_images/Activity_Estimation_I_121_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_120_0.png" src="../../../_images/Activity_Estimation_I_120_0.png" />
 </div>
 </div>
 <p>The function <code class="docutils literal notranslate"><span class="pre">eensight.methods.prediction.activity.estimate_activity</span></code> optimizes the values for the parameters <code class="docutils literal notranslate"><span class="pre">c1</span></code> and <code class="docutils literal notranslate"><span class="pre">c2</span></code>.</p>
@@ -1624,7 +1625,7 @@ best_params
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'c1'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23.0</span>, <span style="color: #008000; text-decoration-color: #008000">'c2'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4976250842770019</span><span style="font-weight: bold">}</span>
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'c1'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23.0</span>, <span style="color: #008000; text-decoration-color: #008000">'c2'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.49815352750940933</span><span style="font-weight: bold">}</span>
 </pre>
 </div></div>
 </div>
@@ -1643,7 +1644,7 @@ best_params
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'c1'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">24.0</span>, <span style="color: #008000; text-decoration-color: #008000">'c2'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5050037082333166</span><span style="font-weight: bold">}</span>
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'c1'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">25.0</span>, <span style="color: #008000; text-decoration-color: #008000">'c2'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5104996754270688</span><span style="font-weight: bold">}</span>
 </pre>
 </div></div>
 </div>
@@ -1738,7 +1739,7 @@ ax2.set_ylabel(&quot;Estimated activity levels&quot;, color=&quot;#cc4c02&quot;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_137_0.png" src="../../../_images/Activity_Estimation_I_137_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_136_0.png" src="../../../_images/Activity_Estimation_I_136_0.png" />
 </div>
 </div>
 <p>There is an additional aspect to verify. For the <code class="docutils literal notranslate"><span class="pre">activity</span></code> feature to be useful in the autoencoding scheme, it must be hard to reconstruct the energy consumption when given <code class="docutils literal notranslate"><span class="pre">activity</span></code> alone, but easy if <code class="docutils literal notranslate"><span class="pre">activity</span></code> is provided along with the features that are independent of the building’s operation and were used for activity level estimation.</p>
@@ -1781,7 +1782,7 @@ summary[&quot;NMBE&quot;][&quot;Autoencoding model w/ activity only&quot;] = nmb
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary = pd.DataFrame.from_dict(summary)
 
-fig = plt.figure(figsize=(8, 3), dpi=96)
+fig = plt.figure(figsize=(8, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1797,7 +1798,7 @@ summary2.plot.barh(ax=ax, color=&quot;#fd8d3c&quot;, legend=False)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_145_0.png" src="../../../_images/Activity_Estimation_I_145_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_144_0.png" src="../../../_images/Activity_Estimation_I_144_0.png" />
 </div>
 </div>
 <p>There are two (2) conclusions to be made from the plot above:</p>
@@ -1809,7 +1810,7 @@ summary2.plot.barh(ax=ax, color=&quot;#fd8d3c&quot;, legend=False)
 <p>Finally, the summary of the NMBE values of all the models is presented in the next plot:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(8, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(8, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -1825,7 +1826,7 @@ summary2.plot.barh(ax=ax, color=&quot;#fd8d3c&quot;, legend=False)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_148_0.png" src="../../../_images/Activity_Estimation_I_148_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_147_0.png" src="../../../_images/Activity_Estimation_I_147_0.png" />
 </div>
 </div>
 </section>
@@ -1847,11 +1848,11 @@ summary2.plot.barh(ax=ax, color=&quot;#fd8d3c&quot;, legend=False)
 <p>where:</p>
 <p><span class="math notranslate nohighlight">\(A\)</span> : Area of building exposed to outdoors <span class="math notranslate nohighlight">\((m^2)\)</span></p>
 <p><span class="math notranslate nohighlight">\(U\)</span> : U value of envelope <span class="math notranslate nohighlight">\((W/(m^2*K))\)</span></p>
-<p><span class="math notranslate nohighlight">\(T_{out}\)</span> : Outdoor air temperature <span class="math notranslate nohighlight">\((K)\)</span></p>
-<p><span class="math notranslate nohighlight">\(T_{sp}^{coo}\)</span> : Setpoint indoor air temperature for cooling <span class="math notranslate nohighlight">\((K)\)</span></p>
-<p><span class="math notranslate nohighlight">\(T_{sp}^{hea}\)</span> : Setpoint indoor air temperature for heating <span class="math notranslate nohighlight">\((K)\)</span></p>
-<p><span class="math notranslate nohighlight">\(T_{sb}^{coo}\)</span> : Setback indoor air temperature for cooling <span class="math notranslate nohighlight">\((K)\)</span></p>
-<p><span class="math notranslate nohighlight">\(T_{sb}^{hea}\)</span> : Setback indoor air temperature for heating <span class="math notranslate nohighlight">\((K)\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_{out}\)</span> : Outdoor air temperature <span class="math notranslate nohighlight">\((Celsius)\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_{sp}^{coo}\)</span> : Setpoint indoor air temperature for cooling <span class="math notranslate nohighlight">\((Celsius)\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_{sp}^{hea}\)</span> : Setpoint indoor air temperature for heating <span class="math notranslate nohighlight">\((Celsius)\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_{sb}^{coo}\)</span> : Setback indoor air temperature for cooling <span class="math notranslate nohighlight">\((Celsius)\)</span></p>
+<p><span class="math notranslate nohighlight">\(T_{sb}^{hea}\)</span> : Setback indoor air temperature for heating <span class="math notranslate nohighlight">\((Celsius)\)</span></p>
 <p><span class="math notranslate nohighlight">\(\eta\)</span> : Heat recovery efficiency (%)</p>
 <p><span class="math notranslate nohighlight">\(c_{p}\)</span> : Specific heat capacity of air <span class="math notranslate nohighlight">\((J/(kg*K))\)</span></p>
 <p><span class="math notranslate nohighlight">\(\rho\)</span> : Density of air <span class="math notranslate nohighlight">\((kg/m^3)\)</span></p>
@@ -1865,13 +1866,13 @@ summary2.plot.barh(ax=ax, color=&quot;#fd8d3c&quot;, legend=False)
 <div class="math notranslate nohighlight">
 \[U \sim Uniform(0.5, 5)\]</div>
 <div class="math notranslate nohighlight">
-\[T_{sp}^{coo} \sim Uniform(273.15 + 24, 273.15 + 27)\]</div>
+\[T_{sp}^{coo} \sim Uniform(24, 27)\]</div>
 <div class="math notranslate nohighlight">
-\[T_{sp}^{hea} \sim Uniform(273.15 + 20, 273.15 + 24)\]</div>
+\[T_{sp}^{hea} \sim Uniform(20, 24)\]</div>
 <div class="math notranslate nohighlight">
-\[T_{sb}^{coo} \sim Uniform(273.15 + 24, 273.15 + 35)\]</div>
+\[T_{sb}^{coo} \sim Uniform(24, 35)\]</div>
 <div class="math notranslate nohighlight">
-\[T_{sb}^{hea} \sim Uniform(273.15 + 5, 273.15 + 20)\]</div>
+\[T_{sb}^{hea} \sim Uniform(5, 20)\]</div>
 <div class="math notranslate nohighlight">
 \[\eta \sim Uniform(0, 1)\]</div>
 <div class="math notranslate nohighlight">
@@ -1889,10 +1890,10 @@ summary2.plot.barh(ax=ax, color=&quot;#fd8d3c&quot;, legend=False)
     
     if (
         (0.5 &lt; u_value &lt; 5)
-        and (273.15 + 24 &lt; T_sp_coo &lt; 273.15 + 27)
-        and (273.15 + 20 &lt; T_sp_hea &lt; 273.15 + 24)
-        and (273.15 + 24 &lt; T_sb_coo &lt; 273.15 + 35)
-        and (273.15 + 5 &lt; T_sb_hea &lt; 273.15 + 20)
+        and (24 &lt; T_sp_coo &lt; 27)
+        and (20 &lt; T_sp_hea &lt; 24)
+        and (24 &lt; T_sb_coo &lt; 35)
+        and (5 &lt; T_sb_hea &lt; 20)
         and (0 &lt; eta &lt; 1)
         and (0.3 &lt; ach &lt; 5)
         and (0 &lt; alpha &lt; y.max() - y.min())
@@ -1997,7 +1998,7 @@ summary2.plot.barh(ax=ax, color=&quot;#fd8d3c&quot;, legend=False)
     nwalkers = 100
     ndim = 9 # number of parameters to estimate
 
-    temperature = X[&quot;temperature&quot;] + 273.15
+    temperature = X[&quot;temperature&quot;]
     activity = X[&quot;activity&quot;]
 
     sampler = emcee.EnsembleSampler(
@@ -2007,15 +2008,15 @@ summary2.plot.barh(ax=ax, color=&quot;#fd8d3c&quot;, legend=False)
     # initial values
     pos = np.array(
         [
-            1,              # u_value 
-            273.15 + 25,    # T_sp_coo 
-            273.15 + 20,    # T_sp_hea 
-            273.15 + 35,    # T_sb_coo
-            273.15 + 10,    # T_sb_hea
-            0.5,            # eta 
-            2,              # ach
-            y.min(),        # alpha
-            y.min()/2       # beta
+            1,          # u_value 
+            25,         # T_sp_coo 
+            20,         # T_sp_hea 
+            35,         # T_sb_coo
+            10,         # T_sb_hea
+            0.5,        # eta 
+            2,          # ach
+            y.min(),    # alpha
+            y.min()/2   # beta
         ]
     )
     pos = np.tile(pos, (nwalkers, 1)) + np.random.randn(nwalkers, ndim)
@@ -2088,10 +2089,7 @@ samples = run_mcmc(X_test_act, prediction, A=30, V=90, cp=1.005, rho=1.2)
 theta = samples.mean(axis=0)
 
 results = {
-    param: val - 273.15 
-           if param in [&quot;T_sp_coo&quot;, &quot;T_sp_hea&quot;, &quot;T_sb_coo&quot;, &quot;T_sb_hea&quot;, ] 
-           else val
-           for param, val in zip(parameters, theta)
+    param: val for param, val in zip(parameters, theta)
 }
 
 table = []
@@ -2106,15 +2104,15 @@ print(tabulate(table, headers=[&quot;Parameter&quot;, &quot;Estimated value&quot
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parameter      Estimated value
 -----------  -----------------
-u_value                   0.86
-T_sp_coo                 24.41
-T_sp_hea                 20.58
-T_sb_coo                 28.63
-T_sb_hea                  8.52
-eta                       0.51
-ach                       2.94
-alpha                    59.74
-beta                     50.27
+u_value                   0.65
+T_sp_coo                 24.16
+T_sp_hea                 20.71
+T_sb_coo                 27.85
+T_sb_hea                  9.09
+eta                       0.36
+ach                       3.22
+alpha                   110.72
+beta                     55.86
 </pre></div>
 </div>
 </div>
@@ -2122,7 +2120,7 @@ beta                     50.27
 <p>We can estimate the HVAC load based on the forward model and the estimated parameters for the building:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>temperature = X_test_act[&quot;temperature&quot;] + 273.15
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>temperature = X_test_act[&quot;temperature&quot;]
 activity = X_test_act[&quot;activity&quot;]
 
 cond_load_on, ven_load, cond_load_off, plug_load = forward_model(
@@ -2143,7 +2141,7 @@ hvac_load = cond_load_on.add(cond_load_off).add(ven_load)
 <p>… and plot the HVAC load estimation along with the actual energy consumption:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -2156,13 +2154,13 @@ ax.legend([&quot;Actual total consumption&quot;, &quot;Predicted HVAC consumptio
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_173_0.png" src="../../../_images/Activity_Estimation_I_173_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_172_0.png" src="../../../_images/Activity_Estimation_I_172_0.png" />
 </div>
 </div>
 <p>And we will do the same for the predicted plug load:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -2175,7 +2173,7 @@ ax.legend([&quot;Actual total consumption&quot;, &quot;Predicted plug consumptio
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_175_0.png" src="../../../_images/Activity_Estimation_I_175_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_174_0.png" src="../../../_images/Activity_Estimation_I_174_0.png" />
 </div>
 </div>
 <p>There is the final argument to support the claim that the estimated activity levels do not cause overfitting due to data leakage:</p>
@@ -2185,7 +2183,7 @@ ax.legend([&quot;Actual total consumption&quot;, &quot;Predicted plug consumptio
 <p>Finally, we can plot the total predicted consumption along with the actual one:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -2200,7 +2198,7 @@ ax.legend([&quot;Actual total consumption&quot;, &quot;Predicted total consumpti
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/Activity_Estimation_I_178_0.png" src="../../../_images/Activity_Estimation_I_178_0.png" />
+<img alt="../../../_images/Activity_Estimation_I_177_0.png" src="../../../_images/Activity_Estimation_I_177_0.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -2259,7 +2257,7 @@ ax.legend([&quot;Actual total consumption&quot;, &quot;Predicted total consumpti
       <div>
   <div style="width:49%;Float:left;display:inline;">
     <div>By Sotiris Papadelis</div>
-    <div>&#169; Copyright 2022-2023</div>
+    <div>&#169; Copyright 2023</div>
   </div>
   <div style="width:49%;Float:right;display:inline;">
     <img align="left" width="500" src="https://github.com/hebes-io/eensight/raw/master/EC_support.png">

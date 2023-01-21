@@ -192,12 +192,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../04/03/Activity_Estimation_II.html">
-     4.3. Activity Estimation: Part II
+     4.4. Activity Estimation: Part II
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../04/04/Counterfactual_Mapping.html">
-     4.4. Counterfactual predictions for mapping variables
+     4.5. Counterfactual predictions for mapping variables
     </a>
    </li>
   </ul>
@@ -576,7 +576,7 @@ datasets, but applying the pipelines (<code class="docutils literal notranslate"
 <p>The function <code class="docutils literal notranslate"><span class="pre">eensight.utils.load_catalog</span></code> allows loading the <code class="docutils literal notranslate"><span class="pre">eensight</span></code> catalog while parameterizing it for the <code class="docutils literal notranslate"><span class="pre">site_id</span></code> and the <code class="docutils literal notranslate"><span class="pre">namespace</span></code>. As an example, we can load the <code class="docutils literal notranslate"><span class="pre">train</span></code> data of the <em>b01</em> dataset. The <em>b01</em> dataset corresponds to the building with <code class="docutils literal notranslate"><span class="pre">id=4</span></code> of the dataset provided by the <a class="reference external" href="https://zenodo.org/record/6590976">EnergyDetective 2020</a> competition.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>catalog = load_catalog(store_uri=&quot;../../data&quot;, site_id=&quot;b01&quot;, namespace=&quot;train&quot;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>catalog_train = load_catalog(store_uri=&quot;../../data&quot;, site_id=&quot;b01&quot;, namespace=&quot;train&quot;)
 </pre></div>
 </div>
 </div>
@@ -584,7 +584,7 @@ datasets, but applying the pipelines (<code class="docutils literal notranslate"
 <p>The contents of the parameterized catalog are:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>catalog.list()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>catalog_train.list()
 </pre></div>
 </div>
 </div>
@@ -653,7 +653,7 @@ datasets, but applying the pipelines (<code class="docutils literal notranslate"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train = catalog_train.load(&quot;train.preprocessed-features&quot;)
 y_train = catalog_train.load(&quot;train.preprocessed-labels&quot;)
 
-fig = plt.figure(figsize=(12, 3.54), dpi=96)
+fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -786,7 +786,7 @@ or <code class="docutils literal notranslate"><span class="pre">apply</span></co
       <div>
   <div style="width:49%;Float:left;display:inline;">
     <div>By Sotiris Papadelis</div>
-    <div>&#169; Copyright 2022-2023</div>
+    <div>&#169; Copyright 2023</div>
   </div>
   <div style="width:49%;Float:right;display:inline;">
     <img align="left" width="500" src="https://github.com/hebes-io/eensight/raw/master/EC_support.png">

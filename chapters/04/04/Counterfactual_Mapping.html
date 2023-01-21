@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>4.4. Counterfactual predictions for mapping variables &#8212; Rethinking Measurement and Verification of Energy Savings</title>
+    <title>4.5. Counterfactual predictions for mapping variables &#8212; Rethinking Measurement and Verification of Energy Savings</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="prev" title="4.3. Estimation of activity levels: Part II" href="../03/Activity_Estimation_II.html" />
+    <link rel="prev" title="4.4. Estimation of activity levels: Part II" href="../03/Activity_Estimation_II.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -191,12 +191,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../03/Activity_Estimation_II.html">
-     4.3. Activity Estimation: Part II
+     4.4. Activity Estimation: Part II
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     4.4. Counterfactual predictions for mapping variables
+     4.5. Counterfactual predictions for mapping variables
     </a>
    </li>
   </ul>
@@ -377,7 +377,7 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-b05-dataset">
-   4.4.1. The
+   4.5.1. The
    <em>
     b05
    </em>
@@ -386,7 +386,18 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#adjusting-activity-levels">
-   4.4.2. Adjusting activity levels
+   4.5.2. Adjusting activity levels
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-adjust-pipeline">
+   4.5.3. The
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     adjust
+    </span>
+   </code>
+   pipeline
   </a>
  </li>
 </ul>
@@ -410,7 +421,7 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-b05-dataset">
-   4.4.1. The
+   4.5.1. The
    <em>
     b05
    </em>
@@ -419,7 +430,18 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#adjusting-activity-levels">
-   4.4.2. Adjusting activity levels
+   4.5.2. Adjusting activity levels
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-adjust-pipeline">
+   4.5.3. The
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     adjust
+    </span>
+   </code>
+   pipeline
   </a>
  </li>
 </ul>
@@ -433,7 +455,7 @@ title="Print to PDF"
               <div>
                 
   <section id="counterfactual-predictions-for-mapping-variables">
-<h1><span class="section-number">4.4. </span>Counterfactual predictions for mapping variables<a class="headerlink" href="#counterfactual-predictions-for-mapping-variables" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">4.5. </span>Counterfactual predictions for mapping variables<a class="headerlink" href="#counterfactual-predictions-for-mapping-variables" title="Permalink to this headline">#</a></h1>
 <p>Up until this point, we have been using the function <code class="docutils literal notranslate"><span class="pre">eensight.methods.prediction.activity.estimate_activity</span></code> to estimate the activity levels given the energy consumption data. However, there is a flaw:</p>
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">estimate_activity</span></code> assumes that the highest consumption values (conditioned on the external variables such as the weather) always correspond to activity levels of <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
@@ -497,7 +519,7 @@ plt.style.use(&quot;bmh&quot;)
 </div>
 </div>
 <section id="the-b05-dataset">
-<h2><span class="section-number">4.4.1. </span>The <em>b05</em> dataset<a class="headerlink" href="#the-b05-dataset" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.5.1. </span>The <em>b05</em> dataset<a class="headerlink" href="#the-b05-dataset" title="Permalink to this headline">#</a></h2>
 <p>The <em>b05</em> data corresponds to the building from the <a class="reference external" href="https://doi.org/10.7941/D1N33Q">Dryad Dataset</a>.</p>
 <p>Start with the <code class="docutils literal notranslate"><span class="pre">train</span></code> data:</p>
 <div class="cell docutils container">
@@ -513,7 +535,7 @@ y_train = catalog.load(&quot;train.preprocessed-labels&quot;)
 <p>The following plot presents the energy consumption of the selected dataset as a function of the outdoor temperature:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -552,7 +574,7 @@ ax.set_ylabel(&quot;consumption&quot;)
     axis=1
 ).sort_values(by=&quot;temperature&quot;)
 
-fig = plt.figure(figsize=(12, 3), dpi=96)
+fig = plt.figure(figsize=(12, 4.5))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -647,7 +669,7 @@ mask = (y_train[&quot;consumption&quot;] &gt;=
         pd.Series(threshold_model.predict(X_train[[&quot;temperature&quot;]]), index=X_train.index)
 )
 
-fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 3.54), dpi=96)
+fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 4.5))
 fig.subplots_adjust(wspace=0.04)
 
 ax1.scatter(
@@ -696,7 +718,7 @@ ax2.set_title(&quot;`apply` data&quot;)
 <p>We can plot the estimated activity levels for the <code class="docutils literal notranslate"><span class="pre">train</span></code> and the <code class="docutils literal notranslate"><span class="pre">apply</span></code> data side by side:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 3.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(12, 4.5))
 
 plot_data = pd.concat(
     [
@@ -758,7 +780,7 @@ plt.tight_layout()
 <p>The problem with the plots above is that activity levels <strong>do not correctly map</strong> between the <code class="docutils literal notranslate"><span class="pre">train</span></code> and the <code class="docutils literal notranslate"><span class="pre">apply</span></code> periods. For a counterfactual model to work appropriately for this dataset, similar temperature and consumption values should correspond to similar activity levels (similar colors on the two plots).</p>
 </section>
 <section id="adjusting-activity-levels">
-<h2><span class="section-number">4.4.2. </span>Adjusting activity levels<a class="headerlink" href="#adjusting-activity-levels" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.5.2. </span>Adjusting activity levels<a class="headerlink" href="#adjusting-activity-levels" title="Permalink to this headline">#</a></h2>
 <p>For events that affect <strong>mapping variables</strong>, the pre-event consumption predictive model is used to estimate post-event activity levels. This is done by finding the activity levels that force the output of the model to match with the currently observed energy consumption. This functionality is provided by the function <code class="docutils literal notranslate"><span class="pre">eensight.methods.prediction.activity.adjust_activity</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">adjust_activity</span></code> needs the post-event data, as well as an energy consumption predictive model that was trained on pre-event data:</p>
 <div class="cell docutils container">
@@ -771,7 +793,7 @@ plt.tight_layout()
 <p>Let’s put all activity estimates side by side:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2, ax3) = plt.subplots(1, 3, sharey=True, figsize=(12, 4.54), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2, ax3) = plt.subplots(1, 3, sharey=True, figsize=(12, 4.5))
 
 plot_data = pd.concat(
     [
@@ -847,7 +869,7 @@ prediction = model.predict(X_counter)
 <p>Typically, the impact is visualized as a cumulative variable:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 3), dpi=96)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 4))
 layout = (1, 1)
 ax = plt.subplot2grid(layout, (0, 0))
 
@@ -861,6 +883,19 @@ ax.set_ylabel(&#39;Reduction in energy usage&#39;)
 <img alt="../../../_images/Counterfactual_Mapping_40_0.png" src="../../../_images/Counterfactual_Mapping_40_0.png" />
 </div>
 </div>
+</section>
+<section id="the-adjust-pipeline">
+<h2><span class="section-number">4.5.3. </span>The <code class="docutils literal notranslate"><span class="pre">adjust</span></code> pipeline<a class="headerlink" href="#the-adjust-pipeline" title="Permalink to this headline">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">adjust</span></code> pipeline can be called from the command line as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>eensight run adjust --site-id b05 --store-uri ../../../data --namespace apply --autoencode  
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">adjust</span></code> supports <strong>only</strong> the <code class="docutils literal notranslate"><span class="pre">apply</span></code> namespace.</p>
+<p>Running the pipeline will create the following artifacts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">apply.activity-adjusted</span></code>: The dataframe with the adjusted activity levels.</p></li>
+</ul>
+<p><strong>WARNING</strong>: If <code class="docutils literal notranslate"><span class="pre">apply.activity-adjusted</span></code> exists, when the <code class="docutils literal notranslate"><span class="pre">predict</span></code> and <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> pipelines run in the <code class="docutils literal notranslate"><span class="pre">apply</span></code> namespace, they will use it instead of generating an <code class="docutils literal notranslate"><span class="pre">apply.activity</span></code> (for <code class="docutils literal notranslate"><span class="pre">predict</span></code>) or using an existing <code class="docutils literal notranslate"><span class="pre">apply.activity</span></code> (for <code class="docutils literal notranslate"><span class="pre">evaluate</span></code>). If you don’t want to use the <code class="docutils literal notranslate"><span class="pre">apply.activity-adjusted</span></code>, either delete it or run <code class="docutils literal notranslate"><span class="pre">eensight</span></code> in a new <a class="reference external" href="https://www.mlflow.org/">MLflow</a> run.</p>
 <hr class="docutils" />
 </section>
 </section>
@@ -896,7 +931,7 @@ ax.set_ylabel(&#39;Reduction in energy usage&#39;)
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">4.3. </span>Estimation of activity levels: Part II</p>
+            <p class="prev-next-title"><span class="section-number">4.4. </span>Estimation of activity levels: Part II</p>
         </div>
     </a>
 </div>
@@ -910,7 +945,7 @@ ax.set_ylabel(&#39;Reduction in energy usage&#39;)
       <div>
   <div style="width:49%;Float:left;display:inline;">
     <div>By Sotiris Papadelis</div>
-    <div>&#169; Copyright 2022-2023</div>
+    <div>&#169; Copyright 2023</div>
   </div>
   <div style="width:49%;Float:right;display:inline;">
     <img align="left" width="500" src="https://github.com/hebes-io/eensight/raw/master/EC_support.png">
